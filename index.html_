@@ -1,0 +1,12 @@
+<html>
+<head>
+<script>
+	if (window.location.href.toString() === "http://localhost/index.html" ||
+    window.location.href.toString() === "http://localhost" ||
+        window.location.href.toString() === "http://localhost/" )
+    {
+		window.location.assign("http://localhost/ce/");
+	}
+</script>
+</head>
+</html>
