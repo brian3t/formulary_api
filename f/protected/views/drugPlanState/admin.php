@@ -44,7 +44,7 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 		'id',
-		'f_plan_id',
+		'f_id',
 		'state_code',
 		'drug_name_param',
 		'drug_id',

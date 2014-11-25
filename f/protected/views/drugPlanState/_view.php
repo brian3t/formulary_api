@@ -4,8 +4,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->id),array('view','id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('f_plan_id')); ?>:</b>
-	<?php echo CHtml::encode($data->f_plan_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('f_id')); ?>:</b>
+	<?php echo CHtml::encode($data->f_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('state_code')); ?>:</b>

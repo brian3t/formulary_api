@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'drug_plan_state':
  * @property integer $id
- * @property integer $f_plan_id
+ * @property integer $f_id
  * @property string $state_code
  * @property string $drug_name_param
  * @property integer $drug_id
@@ -31,15 +31,15 @@ class DrugPlanState extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('f_plan_id, state_code, drug_name_param, drug_id', 'required'),
-			array('f_plan_id, drug_id', 'numerical', 'integerOnly'=>true),
+			array('f_id, state_code, drug_name_param, drug_id', 'required'),
+			array('f_id, drug_id', 'numerical', 'integerOnly'=>true),
 			array('state_code, restriction_code', 'length', 'max'=>2),
 			array('drug_name_param', 'length', 'max'=>2000),
 			array('tier_code', 'length', 'max'=>4),
 			array('additional_info', 'length', 'max'=>2500),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, f_plan_id, state_code, drug_name_param, drug_id, tier_code, additional_info, restriction_code', 'safe', 'on'=>'search'),
+			array('id, f_id, state_code, drug_name_param, drug_id, tier_code, additional_info, restriction_code', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,7 +61,7 @@ class DrugPlanState extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'f_plan_id' => 'F Plan',
+			'f_id' => 'F',
 			'state_code' => 'State Code',
 			'drug_name_param' => 'Drug Name Param',
 			'drug_id' => 'Drug',
@@ -90,7 +90,7 @@ class DrugPlanState extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('f_plan_id',$this->f_plan_id);
+		$criteria->compare('f_id',$this->f_id);
 		$criteria->compare('state_code',$this->state_code,true);
 		$criteria->compare('drug_name_param',$this->drug_name_param,true);
 		$criteria->compare('drug_id',$this->drug_id);

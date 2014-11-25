@@ -19,7 +19,7 @@ array('label'=>'Manage DrugPlanState','url'=>array('admin')),
 'data'=>$model,
 'attributes'=>array(
 		'id',
-		'f_plan_id',
+		'f_id',
 		'state_code',
 		'drug_name_param',
 		'drug_id',

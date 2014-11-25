@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'drug':
  * @property integer $id
  * @property string $name
+ * @property string $name_param
  */
 class Drug extends CActiveRecord
 {
@@ -25,11 +26,11 @@ class Drug extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name', 'length', 'max'=>800),
+			array('name, name_param', 'required'),
+			array('name, name_param', 'length', 'max'=>800),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, name, name_param', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +53,7 @@ class Drug extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'name_param' => 'Name Param',
 		);
 	}
 
@@ -75,6 +77,7 @@ class Drug extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('name_param',$this->name_param,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -81,13 +81,13 @@ class DrugController extends Controller
 		{
 			foreach ($data as $d)
 			{
-				array_push($listOfDrugs,$d->name);
+				array_push($listOfDrugs,$d->getAttributes());
 			}
 		} else
 		{
 			foreach ($data as $d)
 			{
-				$dataArray=$d->getAttribute("name");
+				$dataArray=$d->getAttributes();
 				array_push($listOfDrugs,$dataArray);
 			}
 		}

@@ -20,5 +20,6 @@ array('label'=>'Manage Drug','url'=>array('admin')),
 'attributes'=>array(
 		'id',
 		'name',
+		'name_param',
 ),
 )); ?>

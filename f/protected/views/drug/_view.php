@@ -8,5 +8,9 @@
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('name_param')); ?>:</b>
+	<?php echo CHtml::encode($data->name_param); ?>
+	<br />
+
 
 </div>
