@@ -274,12 +274,9 @@ $bu=Yii::app()->request->baseUrl . '/';
 					<li><a target="_blank" href="<?= $bu ?>misc/abc/index.html"><i class="icon-gift"></i> Template Guide</a>
 					</li>
 				<?php endif; ?>
-				<li class=""><a href="<?= $bu ?>campaign/admin">Campaigns</a>
-				<li><a class="" href="<?= $bu ?>ad/admin">Ads Admin</a></li>
-				<li><a class="" href="<?= $bu ?>imp/admin">Imps Admin</a></li>
-				<li><a class="" href="<?= $bu ?>txn/admin">Txns Admin</a></li>
-				<li><a class="" href="<?= $bu ?>widget/admin">Widgets</a></li>
-
+				<li class=""><a href="<?= $bu ?>drug/admin">Drugs</a>
+				<li><a class="" href="<?= $bu ?>plan/admin">Plans</a></li>
+				<li><a class="" href="<?= $bu ?>drugplanstate/admin">Drug Plan State</a></li>
 			</ul>
 		</li>
 		<!-- END USER LOGIN DROPDOWN -->
