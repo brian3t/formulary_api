@@ -90,9 +90,9 @@ class PlanController extends Controller
 		$fId=Yii::app()->getRequest()->getQuery('f_id');
 		$name=Yii::app()->getRequest()->getQuery('name');
 		$isMedicare=Yii::app()->getRequest()->getQuery('is_med');
-
 		$p=array();
-		$conditions=array('order'=>'name asc');
+		$limit = 20;
+		$conditions=array('order'=>'name asc', 'limit' => $limit);
 
 		if(!empty($id))
 		{

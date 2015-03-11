@@ -121,17 +121,18 @@ class DrugPlanStateController extends Controller {
 					'planName' => $planName,
 					'planID'   => $f_id
 				);
-				$drug_name_param = str_replace("/","",str_replace( " ","",$drugName ));
+				$drug_name_param = preg_replace('/[^\da-z]/i', '', $drugName);
 				$url             = "http://www.fingertipformulary.com/drugs/" . $drug_name_param . "/" . $state . "/plans?" . http_build_query( $queries ); //http://www.fingertipformulary.com/drugs/Flomax/CA/plans?planName=Express+Scripts+High+Performance&planID=356
 				$headers = get_headers($url);
-				if(substr($headers[0], 9, 3) != "404"){
+				if(!in_array(substr($headers[0], 9, 3), ["404","400","500"])){
 					$html            = file_get_contents( $url );
 				}else{
 					$listOfFormulary['id']               = "-1";
-					$listOfFormulary['tier_code']        = "8";
+					$listOfFormulary['tier_code']        = "N/A";
 					$listOfFormulary['additional_info']   = "Information not available at this moment. Please check back later";
 					$listOfFormulary['restriction_code'] = "N/A";
 					echo CJavaScript::jsonEncode( $listOfFormulary );
+					Yii::log("404 at" . $url, CLogger::LEVEL_INFO, 'scraper');
 					Yii::app()->end();
 				}
 				$html5           = new HTML5();
@@ -139,7 +140,7 @@ class DrugPlanStateController extends Controller {
 				$error           = qp( $dom,'div#content h1:nth-child(1):contains(An error occurred)' );
 				if ( strlen($error->text()) > 0 ) {
 					$listOfFormulary['id']               = "-1";
-					$listOfFormulary['tier_code']        = "8";
+					$listOfFormulary['tier_code']        = "N/A";
 					$listOfFormulary['additional_info']   = "Information not available at this moment. Please check back later";
 					$listOfFormulary['restriction_code'] = "N/A";
 					echo CJavaScript::jsonEncode( $listOfFormulary );
@@ -147,14 +148,14 @@ class DrugPlanStateController extends Controller {
 					Yii::app()->end();
 				} else {
 					$h    = qp( $dom,'ul#results' );
-					$tier = "8";
+					$tier = "N/A";
 					if ( sizeof(qp( $h,'li:contains(Tier:)>a' )->attr('href')) > 0) {
 						$tier = qp( $h,'li:contains(Tier:)>a' )->attr('href');
 					};
 					$tier = array_pop(explode("=", $tier));
 					$tier_code = ( sizeof( $tier) > 0 ? str_replace("tier", "", $tier) : "-1" );
 					if ( $tier_code == "8" ) {
-						$tier_code = "NA";
+						$tier_code = "N/A";
 					}
 
 
@@ -182,7 +183,13 @@ class DrugPlanStateController extends Controller {
 						try {
 							$newModel->save();
 						} catch ( Exception $e ) {
-							Yii::log( $e,CLogger::LEVEL_ERROR );
+								$listOfFormulary['id']               = "-1";
+								$listOfFormulary['tier_code']        = "N/A";
+								$listOfFormulary['additional_info']   = "Information not available at this moment. Please check back later";
+								$listOfFormulary['restriction_code'] = "N/A";
+								echo CJavaScript::jsonEncode( $listOfFormulary );
+								Yii::log( $e,CLogger::LEVEL_ERROR );
+								Yii::app()->end();
 						}
 					}
 				};

@@ -1,5 +1,7 @@
 <?php
 defined('DS') or define('DS',DIRECTORY_SEPARATOR);
+defined('CURRENT_ACTIVE_DOMAIN') or define('localhost',CURRENT_ACTIVE_DOMAIN);
+defined('LOCAL_DOMAIN') or define('localhost',LOCAL_DOMAIN);
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../yii/framework/yii.php';
 $config=dirname(__FILE__).'/protected/config/main.php';
