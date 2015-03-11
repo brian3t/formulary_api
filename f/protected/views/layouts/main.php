@@ -276,7 +276,7 @@ $bu=Yii::app()->request->baseUrl . '/';
 				<?php endif; ?>
 				<li class=""><a href="<?= $bu ?>drug/admin">Drugs</a>
 				<li><a class="" href="<?= $bu ?>plan/admin">Plans</a></li>
-				<li><a class="" href="<?= $bu ?>drugplanstate/admin">Drug Plan State</a></li>
+				<li><a class="" href="<?= $bu ?>drugplanstate/index">Drug Plan State</a></li>
 			</ul>
 		</li>
 		<!-- END USER LOGIN DROPDOWN -->
