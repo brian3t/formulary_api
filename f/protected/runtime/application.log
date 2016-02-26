@@ -450,3 +450,26 @@ Stack trace:
 REQUEST_URI=/formulary_api/f/account/admin
 HTTP_REFERER=http://globalmedinfo.com/formulary_api/f/
 ---
+2016/02/26 00:40:39 [error] [exception.CException] exception 'CException' with message 'SiteController cannot find the requested view "email_for_reset".' in /var/www/glo/formulary_api/yii/framework/web/CController.php:878
+Stack trace:
+#0 /var/www/glo/formulary_api/yii/framework/web/CController.php(782): CController->renderPartial('email_for_reset', Array, true)
+#1 /var/www/glo/formulary_api/f/protected/controllers/SiteController.php(178): CController->render('email_for_reset', Array)
+#2 /var/www/glo/formulary_api/yii/framework/web/actions/CInlineAction.php(49): SiteController->actionEmail_for_reset()
+#3 /var/www/glo/formulary_api/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /var/www/glo/formulary_api/yii/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /var/www/glo/formulary_api/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /var/www/glo/formulary_api/yii/framework/web/CWebApplication.php(282): CController->run('email_for_reset')
+#7 /var/www/glo/formulary_api/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/email_for_...')
+#8 /var/www/glo/formulary_api/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /var/www/glo/formulary_api/f/index.php(20): CApplication->run()
+#10 {main}
+REQUEST_URI=/formulary_api/f/site/email_for_reset
+---
+2016/02/26 00:41:35 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "email_for_reset".' in /var/www/glo/formulary_api/yii/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/glo/formulary_api/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('email_for_reset')
+#1 /var/www/glo/formulary_api/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /var/www/glo/formulary_api/f/index.php(20): CApplication->run()
+#3 {main}
+REQUEST_URI=/formulary_api/f/email_for_reset
+---

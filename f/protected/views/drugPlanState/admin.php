@@ -57,4 +57,5 @@ array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),
 ),
+'enablePagination' => false
 )); ?>
