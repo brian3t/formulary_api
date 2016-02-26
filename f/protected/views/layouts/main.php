@@ -236,10 +236,8 @@ $bu=Yii::app()->request->baseUrl . '/';
 
 			<div class="float-left">
 				<?php echo '<input id="top-login" class="btn btn-primary" type="submit" name="yt0" value="Login">'; ?>
-				<a class="btn btn-primary  btn-sm  btn-warning"
-				   href="<?php echo $this->createUrl('site/email_for_reset') ?>">Forgot!</a>
 				<a class=" btn btn-primary btn-sm  btn-info"
-				   href="<?php echo $this->createUrl('site/register') ?>">Sign Up</a>
+				   href="<?php echo $this->createUrl('/formulary_api/f/site/register') ?>">Sign Up</a>
 			</div>
 			<?php $this->endWidget(); ?>
 		</form>
@@ -271,7 +269,7 @@ $bu=Yii::app()->request->baseUrl . '/';
 				<li><a href="<?= $bu ?>user/logout"><i class="icon-key"></i> Log Out</a></li>
 				<li class="divider"></li>
 				<?php if(!app()->user->isGuest && app()->user->roles==="admin"): ?>
-					<li><a target="_blank" href="<?= $bu ?>misc/abc/index.html"><i class="icon-gift"></i> Template Guide</a>
+					<li><a target="_blank" href="<?= $bu ?>misc/abc/index.html"><i class="icon-gift"></i>Template Demo</a>
 					</li>
 				<?php endif; ?>
 				<li class=""><a href="<?= $bu ?>drug/admin">Drugs</a>
@@ -310,80 +308,26 @@ $bu=Yii::app()->request->baseUrl . '/';
 					<i class="icon-home"></i> Home
 				</a>
 			</li>
-			<?php if(!app()->user->getIsGuest() && (app()->user->hasRole("admin") || app()->user->hasRole("advertiser"))): ?>
-				<li class="has-sub open">
-					<a href="javascript:;" class="">
-						<i class="icon-bookmark-empty"></i> Advertiser
-						<span class="arrow"></span>
-					</a>
-					<ul class="sub">
-						<li menu-id="1"><a class="" href="<?= $bu ?>campaign/report">Campaigns</a></li>
-						<li menu-id="2"><a class="" href="<?= $bu ?>ad/report">Ads - View All</a></li>
-						<!--					<li class="has-sub "><a href="javascript:;" class=""> <i class="icon-globe"></i> Websites-->
-						<!--							<span class="arrow"></span></a>-->
-						<!--						<ul class="sub">-->
-						<!--							--><?php
-						//							if(!app()->user->getIsGuest())
-						//							{
-						//								$currUser=User::model()->findByPk(app()->user->id);
-						//								$currAcc=$currUser->account;
-						//								if(isset($currAcc->websites))
-						//								{
-						//									$currWebsites=$currAcc->websites;
-						//									foreach ($currWebsites as $w)
-						//									{
-						//										echo '<li><a class="" href="' . $bu . 'website/view/' . $w->id . '">' . $w->url . '</a></li>';
-						//									}
-						//
-						//								}
-						//							}
-						//
-						?>
-						<!--						</ul>-->
-						<!--					</li>-->
 
+		 	<li>
+                                <a href="<?= $bu ?>drug/admin">
+                                        Medications
+                                </a>
+                        </li>
+                        <li>
+                                <a href="<?= $bu ?>plan/admin">
+                                        Insurance Plans
+                                </a>
+                        </li>
+                        <li>
+                                <a href="<?= $bu ?>drugPlanState/admin">
+                                        Formularies
+                                </a>
+                        </li>
 
-						<li menu-id="3"><a class="" href="<?= $bu ?>website/report/role/Advertiser">Websites</a></li>
-					</ul>
-				</li>
-			<?php endif; ?>
+			
 
-			<?php if(!app()->user->getIsGuest() && (app()->user->hasRole("admin") || app()->user->hasRole("publisher"))): ?>
-
-				<li class="has-sub open">
-					<a href="javascript:;" class="">
-						<i class="icon-bookmark-empty"></i> Publishers
-						<span class="arrow"></span>
-					</a>
-					<ul class="sub">
-						<!--					<li class="has-sub "><a href="javascript:;" class=""> <i class="icon-globe"></i> Websites-->
-						<!--							<span class="arrow"></span></a>-->
-						<!--						<ul class="sub">-->
-						<!--							--><?php
-						//							if(!app()->user->getIsGuest())
-						//							{
-						//								$currUser=User::model()->findByPk(app()->user->id);
-						//								$currAcc=$currUser->account;
-						//								if(isset($currAcc->websites))
-						//								{
-						//									$currWebsites=$currAcc->websites;
-						//									foreach ($currWebsites as $w)
-						//									{
-						//										echo '<li><a class="" href="' . $bu . 'website/view/' . $w->id . '">' . $w->url . '</a></li>';
-						//									}
-						//
-						//								}
-						//							}
-						//
-						?>
-						<!--						</ul>-->
-						<!--					</li>-->
-						<li menu-id="4"><a class="" href="<?= $bu ?>website/report/role/Publisher">Websites</a></li>
-						<li menu-id="5"><a class="" href="<?= $bu ?>widget/report">Widgets - View All</a></li>
-					</ul>
-				</li>
-			<?php endif; ?>
-			<?php if(!app()->user->getIsGuest()): ?>
+<?php if(!app()->user->getIsGuest()): ?>
 
 				<li class="has-sub">
 					<a href="javascript:;" class="">
@@ -400,19 +344,6 @@ $bu=Yii::app()->request->baseUrl . '/';
 				</li>
 			<?php endif; ?>
 
-			<?php if(app()->user->getState("roles")==="admin"): ?>
-				<li class="has-sub">
-					<a href="javascript:;" class="">
-						<i class="icon-bookmark-empty"></i> Admin
-						<span class="arrow"></span>
-					</a>
-					<ul class="sub">
-						<li menu-id="9"><a class="" href="<?= $bu ?>account/admin">Accounts</a></li>
-						<!--					<li><a class="" href="-->
-						<? //= $bu ?><!--banner/admin">Banners</a></li>-->
-					</ul>
-				</li>
-			<?php endif; ?>
 			<?php
 			if(Yii::app()->user->isGuest):
 				?>

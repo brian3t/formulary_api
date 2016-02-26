@@ -118,14 +118,14 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'tri@usvsolutions.com',
+		'adminEmail'=>'ceo@superbappsolutions.com',
 //		'recaptcha_private_key' => '6Le_pPsSAAAAAET7g5GPtDYZxM3HSlXaxWLHNYSd', // captcha will not work without these keys!
 //		'recaptcha_public_key' => '6Le_pPsSAAAAAOzdoxVXkxfG09K3ILNdFj6UobSS', //http://www.google.com/recaptcha
 //		'contactRequireCaptcha' => true,
-		'fromEmail' => 'tri@usvsolutions.com',
-		'replyEmail' => 'tri@usvsolutions.com',
-		'myEmail' => 'tri@usvsolutions.com',
-		'gmail_password' => 'trapok)1',
+		'fromEmail' => 'ceo@superbappsolutions.com',
+		'replyEmail' => 'ceo@superbappsolutions.com',
+		'myEmail' => 'ceo@superbappsolutions.com',
+		'gmail_password' => 'cTrapok)1',
 		'render_switch_form' => false
 
 	),
