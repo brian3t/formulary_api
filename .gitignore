@@ -7,3 +7,4 @@ themes/classic/views/
 .idea
 .idea/**
 f/assets/**
+f/protected/runtime/application.log
