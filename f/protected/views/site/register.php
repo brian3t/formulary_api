@@ -33,7 +33,7 @@ $this->breadcrumbs=array(
 			<!-- BEGIN PAGE TITLE & BREADCRUMB-->
 			<h3 class="page-title">
 				Register
-				<small>Sign up to manage your lottery results</small>
+				<small>Please sign up to contribute medical formulary information. Thank you</small>
 			</h3>
 			<ul class="breadcrumb">
 				<li>

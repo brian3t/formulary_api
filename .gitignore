@@ -8,3 +8,4 @@ themes/classic/views/
 .idea/**
 f/assets/**
 f/protected/runtime/application.log
+/f/protected/runtime/application.log
