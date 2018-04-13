@@ -7,10 +7,8 @@ spl_autoload_register( function ( $c ) {
 	@include_once strtr( $c,'\\_','//' ) . '.php';
 } );
 set_include_path( get_include_path() . PATH_SEPARATOR . __DIR__ . '/../Source' );
-use \Masterminds\HTML5;
-use \Suin\RSSWriter\Feed;
-use \Suin\RSSWriter\Channel;
-use \Suin\RSSWriter\Item;
+
+use Masterminds\HTML5;
 
 class DrugPlanStateController extends Controller {
 	/**
@@ -122,9 +120,9 @@ class DrugPlanStateController extends Controller {
 					'planID'   => $f_id
 				);
 				$drug_name_param = preg_replace('/[^\da-z]/i', '', $drugName);
-				$url             = "http://www.fingertipformulary.com/drugs/" . $drug_name_param . "/" . $state . "/plans?" . http_build_query( $queries ); //http://www.fingertipformulary.com/drugs/Flomax/CA/plans?planName=Express+Scripts+High+Performance&planID=356
+				$url             = "http://lookup.decisionresourcesgroup.com/drugs/" . $drug_name_param . "/" . $state . "/plans?" . http_build_query( $queries ); //http://www.fingertipformulary.com/drugs/Flomax/CA/plans?planName=Express+Scripts+High+Performance&planID=356
 				$headers = get_headers($url);
-				if(!in_array(substr($headers[0], 9, 3), ["404","400","500"])){
+				if(!in_array(substr($headers[0], 9, 3), ["404","400","500","403","404"])){//todob here proper check for headers, because we have 302, then 301, then 403 all in 1 request. Might use guzzle here
 					$html            = file_get_contents( $url );
 				}else{
 					$listOfFormulary['id']               = "-1";
