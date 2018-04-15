@@ -9,3 +9,5 @@ themes/classic/views/
 f/assets/**
 f/protected/runtime/application.log
 /f/protected/runtime/application.log
+/f/protected/vendor/
+f/protected/vendor/
