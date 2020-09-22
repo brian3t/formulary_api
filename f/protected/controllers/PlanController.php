@@ -83,6 +83,7 @@ class PlanController extends Controller
 	 */
 	public function actionGet()
 	{
+	    parent::actionGet();
 		header("Access-Control-Allow-Origin: *");
 		$model=Plan::model();
 		$id=Yii::app()->getRequest()->getQuery('id');
