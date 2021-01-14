@@ -15,3 +15,10 @@ Note: in ./assets folder, need static copy of bootstrap and font-awesome...
     RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-d
     # Otherwise forward the request to index.php
     RewriteRule formulary_api/f/.* /formulary_api/f/index.php
+
+### Source
+DrugPlanStateController.php:129
+$url = "http://lookup.decisionresourcesgroup.com/lookup/results.json" . $drug_name_param . "/" . $state . "/plans?" . http_build_query($queries); //http://www.fingertipformulary.com/drugs/Flomax/CA/plans?planName=Express+Scripts+High+Performance&planID=356
+
+https://lookup.decisionresourcesgroup.com/lookup/results.json?drug_ids%5B%5D=1050&health_plan_ids%5B%5D=553&_=1610600343137
+
