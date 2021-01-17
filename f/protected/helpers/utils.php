@@ -167,8 +167,8 @@ function array_replace_recursive2($array, $array1)
     }
     return $array;
   }
-  
-  
+
+
   /**
  * This is the shortcut to nl2br(CHtml::encode())
  * @param string the text to be formatted
@@ -200,13 +200,13 @@ function nh($text, $limit = 0, $readMore = 'read more')
 		return nl2br(htmlspecialchars($text, ENT_QUOTES, Yii::app()->charset));
 }
 
-  
+
  /**
  * Adds trailing dots to a string if exceeds the length specified
  * @param string $txt the text to cut
  * @param integer $length the length
  * @param string $encoding the encoding type if multibyte, null otherwise
- * @return string 
+ * @return string
  */
 function trail($txt, $length, $encoding = 'utf-8')
 {
@@ -227,13 +227,13 @@ function trail($txt, $length, $encoding = 'utf-8')
 	}
 	return $txt;
 }
- 
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
   /**
  * Get user ip, figure out if he uses proxy , make sure not pick up internal ip
  *
@@ -289,10 +289,10 @@ if(is_array($blockedAddresses) && count($blockedAddresses)) {
 
 
 }
-  
 
- 
-  
+
+
+
   /**
  * Email obfuscator script 2.1 by Tim Williams, University of Arizona.
  * Random encryption key feature by Andrew Moulden, Site Engineering Ltd
@@ -300,9 +300,9 @@ if(is_array($blockedAddresses) && count($blockedAddresses)) {
  * This code is freeware provided these six comment lines remain intact
  * A wizard to generate this code is at http://www.jottings.com/obfuscator/
  * The PHP code may be obtained from http://www.celticproductions.net/\n\n";
- * 
+ *
  * @param string $address the email address to obfuscate
- * @return string 
+ * @return string
  */
 function obfuscateEmail($address)
 {
@@ -331,15 +331,15 @@ function obfuscateEmail($address)
 
 	for ($j = 0; $j < strlen($address); $j++)
 	{
-		if (strpos($cipher, $address{$j}) == -1)
+		if (strpos($cipher, $address[$j]) == -1)
 		{
-			$chr = $address{$j};
+			$chr = $address[$j];
 			$coded .= $chr;
 		}
 		else
 		{
-			$chr = (strpos($cipher, $address{$j}) + $shift) % strlen($cipher);
-			$coded .= $cipher{$chr};
+			$chr = (strpos($cipher, $address[$j]) + $shift) % strlen($cipher);
+			$coded .= $cipher[$chr];
 		}
 	}
 
@@ -367,5 +367,4 @@ shift+key.length) % key.length\n" .
 	return $txt;
 }
 
-  
-  
+

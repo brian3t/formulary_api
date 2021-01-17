@@ -14,11 +14,11 @@ return array(
 		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/font-awesome/4.1.0/' : $this->getAssetsUrl().'/font-awesome/',
 		'css' => array(($this->minify || $this->enableCdn) ? 'css/font-awesome.min.css' : 'css/font-awesome.css'),
 	),
-//	'bootstrap.js' => array(
-//		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/bootstrap/3.1.1/' : $this->getAssetsUrl() . '/bootstrap/',
-//		'js' => array($this->minify ? 'js/bootstrap.min.js' : 'js/bootstrap.js'),
-//		'depends' => array('jquery'),
-//	),
+	'bootstrap.js' => array(
+		'baseUrl' => $this->enableCdn ? '//netdna.bootstrapcdn.com/bootstrap/3.1.1/' : $this->getAssetsUrl() . '/bootstrap/',
+		'js' => array($this->minify ? 'js/bootstrap.min.js' : 'js/bootstrap.js'),
+		'depends' => array('jquery'),
+	),
 	'bootstrap-yii' => array(
 		'baseUrl' => $this->getAssetsUrl(),
 		'css' => array('css/bootstrap-yii.css'),
@@ -52,7 +52,7 @@ return array(
 		'depends' => array('jquery'),
 		'baseUrl' => $this->enableCdn ? '//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/' : $this->getAssetsUrl() . '/bootstrap-datepicker/',
 		'css' => array('css/datepicker3.css'), // $this->minify ? 'css/datepicker.min.css' : 'css/datepicker.css'),
-		'js' => array($this->minify ? 'js/bootstrap-datepicker.min.js' : 'js/bootstrap-datepicker.js', 'js/bootstrap-datepicker-noconflict.js') 
+		'js' => array($this->minify ? 'js/bootstrap-datepicker.min.js' : 'js/bootstrap-datepicker.js', 'js/bootstrap-datepicker-noconflict.js')
 		// ... the noconflict code is in its own file so we do not want to touch the original js files to ease upgrading lib
 	),
 	'datetimepicker' => array(

@@ -149,58 +149,6 @@ $bu=Yii::app()->request->baseUrl . '/';
 		</ul>
 	</li>
 	<!-- END NOTIFICATION DROPDOWN -->
-	<!-- BEGIN INBOX DROPDOWN -->
-	<li class="dropdown" id="header_inbox_bar">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-			<i class="icon-envelope-alt"></i>
-			<span class="label label-success">5</span>
-		</a>
-		<ul class="dropdown-menu extended inbox">
-			<li>
-				<p>You have 12 new messages</p>
-			</li>
-			<li>
-				<a href="#">
-					<span class="photo"><img src="/assets/img/avatar-mini.png" alt="avatar"/></span>
-									<span class="subject">
-									<span class="from">Lisa Wong</span>
-									<span class="time">Just Now</span>
-									</span>
-									<span class="message">
-									Vivamus sed auctor nibh congue nibh.
-									</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<span class="photo"><img src="/assets/img/avatar-mini.png" alt="avatar"/></span>
-									<span class="subject">
-									<span class="from">Alina Fionovna</span>
-									<span class="time">16 mins</span>
-									</span>
-									<span class="message">
-									Vivamus sed auctor nibh congue.
-									</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<span class="photo"><img src="/assets/img/avatar-mini.png" alt="avatar"/></span>
-									<span class="subject">
-									<span class="from">Mila Rock</span>
-									<span class="time">2 hrs</span>
-									</span>
-									<span class="message">
-									Vivamus sed auctor nibh congue.
-									</span>
-				</a>
-			</li>
-			<li>
-				<a href="#">See all messages</a>
-			</li>
-		</ul>
-	</li>
-	<!-- END INBOX DROPDOWN -->
 
 	<!-- begin user login form -->
 	<?php if(app()->user->isGuest): ?>
@@ -258,7 +206,9 @@ $bu=Yii::app()->request->baseUrl . '/';
 		<!-- END USER SETTINGS DROPDOWN -->
 
 		<!-- BEGIN USER LOGIN DROPDOWN -->
-		<li class="dropdown">
+    <li><a href="<?= $bu ?>user/logout"><i class="icon-key"></i> Log Out</a></li>
+
+    <li class="dropdown">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				<i class="icon-user"></i>
 				<b class="caret"></b>
@@ -325,7 +275,7 @@ $bu=Yii::app()->request->baseUrl . '/';
                                 </a>
                         </li>
 
-			
+
 
 <?php if(!app()->user->getIsGuest()): ?>
 
