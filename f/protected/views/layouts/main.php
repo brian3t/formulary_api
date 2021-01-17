@@ -360,7 +360,7 @@ $bu=Yii::app()->request->baseUrl . '/';
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS -->
 <!-- Load javascripts at bottom, this will reduce page load time -->
-<script src="/assets/jQuery-slimScroll/jquery-ui-1.9.2.custom.min.js"></script>
+<!--<script src="/assets/jQuery-slimScroll/jquery-ui-1.9.2.custom.min.js"></script>-->
 <script src="/assets/jQuery-slimScroll/slimScroll.min.js"></script>
 <script src="/assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>
 <script src="/assets/bootstrap/js/bootstrap.min.js"></script>

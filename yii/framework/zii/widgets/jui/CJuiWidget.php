@@ -51,7 +51,7 @@ abstract class CJuiWidget extends CWidget
 	 * This property can also be set as false, which means the widget will not include any script file,
 	 * and it is your responsibility to explicitly include it somewhere else.
 	 */
-	public $scriptFile='jquery-ui.min.js';
+//	public $scriptFile='jquery-ui.min.js';
 	/**
 	 * @var mixed the theme CSS file name. Defaults to 'jquery-ui.css'.
 	 * Note the file must exist under the URL specified by {@link themeUrl}/{@link theme}.
