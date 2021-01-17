@@ -24,7 +24,8 @@
 	<![endif]-->
 	<title>Admin Dashboard</title>
 	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-	<?php app()->clientScript->registerCoreScript('jquery.ui'); ?>
+<!--	--><?php //app()->clientScript->registerCoreScript('jquery.ui'); ?>
+	<?php app()->clientScript->registerCoreScript('bootstrap'); ?>
 	<!--	<script src="/assets/js/jquery-1.8.2.min.js"></script>-->
 	<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 	<link href="/assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/>
@@ -360,10 +361,10 @@ $bu=Yii::app()->request->baseUrl . '/';
 <!-- END FOOTER -->
 <!-- BEGIN JAVASCRIPTS -->
 <!-- Load javascripts at bottom, this will reduce page load time -->
-<!--<script src="/assets/jQuery-slimScroll/jquery-ui-1.9.2.custom.min.js"></script>-->
+<script src="/assets/jQuery-slimScroll/jquery-ui-1.9.2.custom.min.js"></script>
 <script src="/assets/jQuery-slimScroll/slimScroll.min.js"></script>
 <script src="/assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>
-<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="/assets/bootstrap/js/bootstrap.min.js"></script>-->
 <script src="/assets/js/jquery.blockui.js"></script>
 <script src="/assets/js/jquery.cookie.js"></script>
 <!-- ie8 fixes -->
@@ -385,16 +386,16 @@ $bu=Yii::app()->request->baseUrl . '/';
 <!-- end for index -->
 <script src="/assets/js/jquery.peity.min.js"></script>
 <script type="text/javascript" src="/assets/gritter/js/jquery.gritter.js"></script>
-<script type="text/javascript" src="/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="/assets/uniform/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="/formulary_api/static/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
+<!--<script type="text/javascript" src="/assets/uniform/jquery.uniform.min.js"></script>-->
 <script type="text/javascript" src="/assets/js/jquery.pulsate.min.js"></script>
 <script type="text/javascript" src="/assets/bootstrap-daterangepicker/date.js"></script>
 <script type="text/javascript" src="/assets/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!--<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>-->
 <script type="text/javascript" src="/assets/data-tables/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/assets/data-tables/DT_bootstrap.js"></script>
-<script src="/assets/fancybox/source/jquery.fancybox.pack.js"></script>
-<script src="/assets/js/app.js"></script>
+<!--<script src="/assets/fancybox/source/jquery.fancybox.pack.js"></script>-->
+<script src="/formulary_api/static/app.js"></script>
 <script>
 	jQuery(document).ready(function () {
 		// initiate layout and plugins

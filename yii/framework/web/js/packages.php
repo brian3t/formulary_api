@@ -12,10 +12,14 @@
  */
 
 return array(
-	'jquery'=>array(
-		'js'=>array(YII_DEBUG ? 'jquery.js' : 'jquery.min.js'),
-	),
-	'yii'=>array(
+    'jquery'=>array(
+        'js'=>array(YII_DEBUG ? 'jquery.js' : 'jquery.min.js'),
+    ),
+    'bootstrap'=>array(
+        'js'=>array('bootstrap.min.js'),
+        'depends'=>array('jquery'),
+    ),
+    'yii'=>array(
 		'js'=>array('jquery.yii.js'),
 		'depends'=>array('jquery'),
 	),

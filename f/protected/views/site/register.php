@@ -9,7 +9,7 @@
 <link href="/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet"/>
 <link rel="stylesheet" type="text/css" href="/assets/gritter/css/jquery.gritter.css"/>
 <!--<link rel="stylesheet" type="text/css" href="/assets/uniform/css/uniform.default.css"/>-->
-<link rel="stylesheet" type="text/css" href="/assets/chosen-bootstrap/chosen/chosen.css"/>
+<link rel="stylesheet" type="text/css" href="/formulary_api/static/chosen-bootstrap/chosen/chosen.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/bootstrap-datepicker/css/datepicker.css"/>
 <link rel="stylesheet" type="text/css" href="/assets/bootstrap-timepicker/compiled/timepicker.css"/>
@@ -191,7 +191,7 @@ $this->breadcrumbs=array(
 <script src="/assets/js/excanvas.js"></script>
 <script src="/assets/js/respond.js"></script>
 <![endif]-->
-<script type="text/javascript" src="/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/formulary_api/static/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
 <!--<script type="text/javascript" src="/assets/uniform/jquery.uniform.min.js"></script>-->
 <script type="text/javascript" src="/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>

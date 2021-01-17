@@ -277,7 +277,7 @@ class Booster extends CApplicationComponent {
 		foreach ($this->packages as $name => $definition) {
 			$this->cs->addPackage($name, $definition);
 		}
-//        $this->cs->scriptMap['jquery-ui.min.js'] = $this->getAssetsUrl() . '/js/jquery-ui-no-conflict.min.js';
+        $this->cs->scriptMap['jquery-ui.min.js'] = $this->getAssetsUrl() . '/js/jquery-ui-no-conflict.min.js';
 	}
 
 	/**
