@@ -7,7 +7,7 @@
 <body  style="background-color:#fbf9ee;
      " leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
 <center style="height:500px;">
-	<img src="http://usvsolutions.com/formulary_api/assets/img/logo.png" style="width:600px" />
+	<img src="https://formapi.usvsolutions.com/assets/img/logo.png" style="width:600px" />
 	<h1 style="font-size: 40px; color:#000000" class="h1"><?php echo Yii::app() ->name;?></h1>
 	<div style="margin-top: 250px;">
 		<?php echo $content; ?>

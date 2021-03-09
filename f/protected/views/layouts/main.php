@@ -186,7 +186,7 @@ $bu=Yii::app()->request->baseUrl . '/';
 			<div class="float-left">
 				<?php echo '<input id="top-login" class="btn btn-primary" type="submit" name="yt0" value="Login">'; ?>
 				<a class=" btn btn-primary btn-sm  btn-info"
-				   href="<?php echo $this->createUrl('/formulary_api/f/site/register') ?>">Sign Up</a>
+				   href="<?php echo $this->createUrl('/f/site/register') ?>">Sign Up</a>
 			</div>
 			<?php $this->endWidget(); ?>
 		</form>
@@ -386,7 +386,7 @@ $bu=Yii::app()->request->baseUrl . '/';
 <!-- end for index -->
 <script src="/assets/js/jquery.peity.min.js"></script>
 <script type="text/javascript" src="/assets/gritter/js/jquery.gritter.js"></script>
-<script type="text/javascript" src="/formulary_api/static/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/static/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
 <!--<script type="text/javascript" src="/assets/uniform/jquery.uniform.min.js"></script>-->
 <script type="text/javascript" src="/assets/js/jquery.pulsate.min.js"></script>
 <script type="text/javascript" src="/assets/bootstrap-daterangepicker/date.js"></script>
@@ -395,7 +395,7 @@ $bu=Yii::app()->request->baseUrl . '/';
 <script type="text/javascript" src="/assets/data-tables/jquery.dataTables.js"></script>
 <script type="text/javascript" src="/assets/data-tables/DT_bootstrap.js"></script>
 <!--<script src="/assets/fancybox/source/jquery.fancybox.pack.js"></script>-->
-<script src="/formulary_api/static/app.js"></script>
+<script src="/static/app.js"></script>
 <script>
 	jQuery(document).ready(function () {
 		// initiate layout and plugins

@@ -1,7 +1,7 @@
 {
     "require": {
         "geoip2/geoip2": "0.6.*",
-        "querypath/QueryPath": ">=3.0.0",
+        "querypath/querypath": ">=3.0.0",
         "masterminds/html5": "2.*",
         "suin/php-rss-writer": ">=1.0",
         "guzzlehttp/guzzle": "~6.0"
