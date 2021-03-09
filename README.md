@@ -16,6 +16,11 @@ Note: in ./assets folder, need static copy of bootstrap and font-awesome...
     # Otherwise forward the request to index.php
     RewriteRule f/.* /f/index.php
 
+#### Installation:
+- create f/protected/assets, make writable
+- create f/assets, make writable
+- cd f/protected, run `composer install`
+
 ### Source
 DrugPlanStateController.php:129
 $url = "http://lookup.decisionresourcesgroup.com/lookup/results.json" . $drug_name_param . "/" . $state . "/plans?" . http_build_query($queries); //http://www.fingertipformulary.com/drugs/Flomax/CA/plans?planName=Express+Scripts+High+Performance&planID=356
