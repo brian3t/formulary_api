@@ -1,6 +1,6 @@
 #### REST API for Formulary app
 
-Built on Yii 1.1 MVC Framework, YiiBooster.
+Built on Yii 1.1 MVC Framework, YiiBooster and YiiBoilerPlate https://github.com/clevertech/YiiBoilerplate
 
 Web Admin: https://formapi.usvsolutions.com/f/
 

@@ -76,7 +76,7 @@ $this->breadcrumbs = array(
 <!--                --><?php //echo CHtml::submitButton('Login', array('class' => 'btn btn-primary btn-lg')); ?>
 				<input class="btn btn-primary" type="submit" name="yt0" value="Login">
 				<a class="btn btn-primary col-lg-offset-2 btn-sm"
-                   href="<?php echo $this->createUrl('formulary_api/f/site/email_for_reset') ?>">Forgot My Password</a>
+                   href="<?php echo $this->createUrl('f/site/email_for_reset') ?>">Forgot My Password</a>
             </div>
         </div>
 <!--        --><?php //if ($model->getRequireCaptcha()) : ?>
