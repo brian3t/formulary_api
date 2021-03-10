@@ -126,7 +126,8 @@ class DrugPlanStateController extends Controller
                     //todob use drug ID here
                 );
                 $drug_name_param = preg_replace('/[^\da-z]/i', '', $drugName);
-                $url = "http://lookup.decisionresourcesgroup.com/lookup/results.json" . $drug_name_param . "/" . $state . "/plans?" . http_build_query($queries); //http://www.fingertipformulary.com/drugs/Flomax/CA/plans?planName=Express+Scripts+High+Performance&planID=356
+//                $url = "http://lookup.decisionresourcesgroup.com/lookup/results.json" . $drug_name_param . "/" . $state . "/plans?" . http_build_query($queries); //http://www.fingertipformulary.com/drugs/Flomax/CA/plans?planName=Express+Scripts+High+Performance&planID=356
+                $url = 'todo'; //todo: https://lookup.decisionresourcesgroup.com/lookup/results.json?drug_ids[]=1050&health_plan_ids[]=553&_=1610600343137
                 $client = new GuzzleHttp\Client();
                 try {
                     $res = $client->request('GET', $url);
