@@ -19,6 +19,7 @@ Note: in ./assets folder, need static copy of bootstrap and font-awesome...
 #### Installation:
 - create f/protected/assets, make writable
 - create f/assets, make writable
+- copy ./assets/* into ./f/assets
 - cd f/protected, run `composer install`
 
 ### Source
