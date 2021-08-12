@@ -74,7 +74,8 @@ return array(
 
 
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=formulary',
+//			'connectionString' => 'mysql:host=localhost;dbname=formulary',
+			'connectionString' => 'mysql:host=192.168.1.9;dbname=formulary',//mtime
 			'emulatePrepare' => true,
 			'username' => 'formulary',
 			'password' => 'fTrapok)1',

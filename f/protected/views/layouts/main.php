@@ -59,7 +59,7 @@ $bu=Yii::app()->request->baseUrl . '/';
 <div class="container-fluid">
 <!-- BEGIN LOGO -->
 <a class="brand" href="<?= $bu ?>">
-	F API
+	Formulary API
 	<!--	<img src="/assets/img/logo.png" alt="Conquer"/>-->
 </a>
 <!-- END LOGO -->
