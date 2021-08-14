@@ -5,7 +5,7 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-return array(
+$conf = array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'Formulary - The most advanced healthcare API',
 
@@ -131,3 +131,7 @@ return array(
 
 	),
 );
+
+$override_conf = require_once('override.php');
+
+return $conf;

@@ -12,3 +12,4 @@ f/protected/runtime/application.log
 f/protected/vendor/
 f/protected/vendor/*
 /f/protected/runtime/
+/f/protected/config/override.php
