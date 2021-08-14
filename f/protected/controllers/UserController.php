@@ -210,6 +210,6 @@ class UserController extends Controller
 
 	public function actionLogout(){
 		app()->user->logout();
-		$this->redirect(app()->baseUrl);
+		$this->redirect(app()->homeUrl);
 	}
 }

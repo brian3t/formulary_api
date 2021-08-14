@@ -28,3 +28,7 @@ $url = "http://lookup.decisionresourcesgroup.com/lookup/results.json" . $drug_na
 
 https://lookup.decisionresourcesgroup.com/lookup/results.json?drug_ids%5B%5D=1050&health_plan_ids%5B%5D=553&_=1610600343137
 
+### RXCUI RXNORM database
+
+MySQL setting:
+MYSQL_HOME = /usr

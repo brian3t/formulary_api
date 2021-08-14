@@ -5,7 +5,7 @@ return
             'connectionString' => 'mysql:host=localhost;dbname=formulary',
             'emulatePrepare' => true,
             'username' => 'formulary',
-            'password' => 'fTrapok)1',
+            'password' => 'pw',
             'charset' => 'utf8',
         ),
     ]];
