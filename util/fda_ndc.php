@@ -1,13 +1,13 @@
 <?php
 /*
- * Import FDC NDC from inp/product_***.txt into fda_ndc table
+ * Import FDA NDC from inp/product_***.txt into fda_ndc table
  */
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dibi\Connection;
 
-const DEBUG = false;
-//const DEBUG = true;
+//const DEBUG = false;
+const DEBUG = true;
 
 $yii_conf = require_once(dirname(__DIR__) . '/f/protected/config/override.php');
 $yii_conf = $yii_conf['components']['db'];
@@ -96,7 +96,7 @@ try {
         if (DEBUG) var_dump($insert_res);
     }
 } catch (\Dibi\Exception $e) {
-    echo "Error: " . $e->getMessage(). " New NDC: ", json_encode($new_ndc);
+    echo "Error: " . $e->getMessage(). " New NDC: " . json_encode($new_ndc);
 }
 
 fclose($inp);
