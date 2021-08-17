@@ -6,8 +6,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dibi\Connection;
 
-//const DEBUG = false;
-const DEBUG = true;
+const DEBUG = false;
+//const DEBUG = true;
 
 $yii_conf = require_once(dirname(__DIR__) . '/f/protected/config/override.php');
 $yii_conf = $yii_conf['components']['db'];
@@ -61,6 +61,13 @@ try {
         $marketingcategoryname = $vals[10];
         $applicationnumber = $vals[11];
         $labelername = $vals[12];
+
+        // If it's not already UTF-8, convert to it
+        if (mb_detect_encoding($labelername, 'utf-8', true) === false) {
+            echo "labelername not utf8, labelername: $labelername";
+            $labelername = mb_convert_encoding($labelername, 'utf-8', 'iso-8859-1');
+        }
+
         $substancename = $vals[13];
         $active_numerator_strength = $vals[14];
         $active_ingred_unit = $vals[15];
@@ -96,7 +103,7 @@ try {
         if (DEBUG) var_dump($insert_res);
     }
 } catch (\Dibi\Exception $e) {
-    echo "Error: " . $e->getMessage(). " New NDC: " . json_encode($new_ndc);
+    echo PHP_EOL. "Error: " . $e->getMessage(). " New NDC: " . json_encode($new_ndc);
 }
 
 fclose($inp);
