@@ -64,7 +64,7 @@ try {
 
         // If it's not already UTF-8, convert to it
         if (mb_detect_encoding($labelername, 'utf-8', true) === false) {
-            echo "labelername not utf8, labelername: $labelername";
+//            echo "labelername not utf8, labelername: $labelername";
             $labelername = mb_convert_encoding($labelername, 'utf-8', 'iso-8859-1');
         }
 
