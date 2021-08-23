@@ -42,6 +42,8 @@ if (sizeof($cols) !== 20) die('Number of cols not 20');
 try {
     while ($row = fgets($inp)) {
 //    if (DEBUG) var_dump($row);
+        $row = str_replace("\r", '', $row);
+        $row = str_replace("\n", '', $row);
         $vals = explode("\t", $row);
 //        if (DEBUG) var_dump($vals);
         if (sizeof($vals) !== 20) {

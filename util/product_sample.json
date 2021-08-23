@@ -1,0 +1,23 @@
+{
+  "id": 121218,
+  "productid": "81646-113_483e7336-2c5b-4468-b754-24b9be314992",
+  "productndc": "81646-113",
+  "producttypename": "HUMAN PRESCRIPTION DRUG",
+  "proprietaryname": "Ibuprofen",
+  "proprietarynamesuffix": "",
+  "nonproprietaryname": "Ibuprofen",
+  "dosageformname": "SUSPENSION",
+  "routename": "ORAL",
+  "startmarketingdate": "20041208",
+  "endmarketingdate": "",
+  "marketingcategoryname": "ANDA",
+  "applicationnumber": "ANDA076925",
+  "labelername": "PINNACLE PHARMA LLC",
+  "substancename": "IBUPROFEN",
+  "active_numerator_strength": "100",
+  "active_ingred_unit": "mg/5mL",
+  "pharm_classes": "Cyclooxygenase Inhibitors [MoA],Anti-Inflammatory Agents, Non-Steroidal [CS],Nonsteroidal Anti-inflammatory Drug [EPC]",
+  "deaschedule": "",
+  "ndc_exclude_flag": "N",
+  "listing_record_certified_through": "20221231\r\n"
+}
