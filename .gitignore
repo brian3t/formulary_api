@@ -15,3 +15,4 @@ f/protected/vendor/*
 /f/protected/config/override.php
 /vendor/
 /util/inp/
+*_fullfile.txt

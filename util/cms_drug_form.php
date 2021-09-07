@@ -33,7 +33,7 @@ if (! $inp) die('File not found');
 $header = fgets($inp);
 if (! $header) die("Cannot open file");
 
-$cols = explode('	', $header);
+$cols = explode('|', $header);
 $cols = array_map(function ($col) {
     return strtolower($col);
 }, $cols);
@@ -41,73 +41,77 @@ $cols = array_map(function ($col) {
 //if (DEBUG) var_dump($cols);
 if (sizeof($cols) !== NUM_COLS) die("Number of cols not " . NUM_COLS);
 try {
+    $cnt_inserted = 0;
     while ($row = fgets($inp)) {
-    if (DEBUG) var_dump($row);
+        if (DEBUG) var_dump($row);
         $row = str_replace("\r", '', $row);
         $row = str_replace("\n", '', $row);
-        $vals = explode("\t", $row);
+        $vals = explode("|", $row);
         if (DEBUG) var_dump($vals);
         if (sizeof($vals) !== NUM_COLS) {
             echo 'Number of values not ' . NUM_COLS . ', exiting..';
             break;
         }
         $formulary_id = $vals[0];
-        $productndc = $vals[1];
-        $producttypename = $vals[2];
-        $proprietaryname = $vals[3];
-        $proprietarynamesuffix = $vals[4];
-        $nonproprietaryname = $vals[5];
-        $dosageformname = $vals[6];
-        $routename = $vals[7];
-        $startmarketingdate = $vals[8];
-        $endmarketingdate = $vals[9];
-        $marketingcategoryname = $vals[10];
-        $applicationnumber = $vals[11];
-        $labelername = $vals[12];
+        $formulary_version = $vals[1];
+        $contract_year = $vals[2];
+        $rxcui = $vals[3];
+        $ndc = $vals[4];
+        $tier_level_value = $vals[5];
+        $quantity_limit_yn = $vals[6];
+        $quantity_limit_amount = $vals[7];
+        $quantity_limit_days = $vals[8];
+        $prior_authorization_yn = $vals[9];
+        $step_therapy_yn = $vals[10];
+
+        $formulary_version = intval($formulary_version);
+        $contract_year = intval($contract_year);
+        $rxcui = intval($rxcui);
+        $tier_level_value = intval($tier_level_value);
+        $quantity_limit_amount = intval($quantity_limit_amount);
+        $quantity_limit_days = intval($quantity_limit_days);
+
 
         // If it's not already UTF-8, convert to it
-        if (mb_detect_encoding($labelername, 'utf-8', true) === false) {
-//            echo "labelername not utf8, labelername: $labelername";
-            $labelername = mb_convert_encoding($labelername, 'utf-8', 'iso-8859-1');
-        }
+//        if (mb_detect_encoding($labelername, 'utf-8', true) === false) {
+//            $labelername = mb_convert_encoding($labelername, 'utf-8', 'iso-8859-1');
+//        }
 
-        $substancename = $vals[13];
-        $active_numerator_strength = $vals[14];
-        $active_ingred_unit = $vals[15];
-        $pharm_classes = $vals[16];
-        $deaschedule = $vals[17];
-        $ndc_exclude_flag = $vals[18];
-        $listing_record_certified_through = $vals[19];
 
-        $new_ndc = [];
-        $csv_list_of_var_names = 'productid,productndc,producttypename,proprietaryname,proprietarynamesuffix,nonproprietaryname,dosageformname,routename
-        ,startmarketingdate,endmarketingdate,marketingcategoryname,applicationnumber,labelername,substancename,active_numerator_strength,active_ingred_unit
-        ,pharm_classes,deaschedule,ndc_exclude_flag,listing_record_certified_through';
+        $new_cms_drug_form = [];
+        $csv_list_of_var_names = 'formulary_id,formulary_version,contract_year,rxcui,ndc,tier_level_value,quantity_limit_yn,quantity_limit_amount,quantity_limit_days
+        ,prior_authorization_yn,step_therapy_yn';
         $csv_list_of_var_names = str_replace(' ', '', $csv_list_of_var_names);
         $csv_list_of_var_names = str_replace("\n", '', $csv_list_of_var_names);
         $csv_list_of_var_names = explode(',', $csv_list_of_var_names);
         foreach ($csv_list_of_var_names as $var_name) {
             $value = $$var_name;
-            $new_ndc[$var_name] = $value;
+            if (strtolower($value) == 'y') $value = false;
+            if (strtolower($value) == 'n') $value = true;
+            $new_cms_drug_form[$var_name] = $value;
         }
 
 
-        $exist_ndc = $db->query("SELECT id FROM fda_ndc WHERE productid = %s", $productid);
-        $exist_ndc = $exist_ndc->fetchSingle();
-        if (! empty($exist_ndc)) continue;
+        $exist_cms_drug_form = $db->query("SELECT id FROM cms_drug_form WHERE formulary_id = %s
+AND formulary_version = %s AND contract_year = %s AND rxcui = %s
+", $formulary_id, $formulary_version, $contract_year, $rxcui);
+        $exist_cms_drug_form = $exist_cms_drug_form->fetchSingle();
+        if (! empty($exist_cms_drug_form)) continue;
 
-        $insert_res = $db->query('INSERT INTO fda_ndc', $new_ndc);
+        $insert_res = $db->query('INSERT INTO cms_drug_form', $new_cms_drug_form);
         if ($insert_res instanceof Dibi\Result) {
             if ($insert_res->count() !== 1) {
-                $populate_msg .= ". Warning: ndc not saved";
+                $populate_msg .= ". Warning: cms_drug_form not saved";
             }
-            $ndc_id = $db->getInsertId() ?? null;
+            $new_id = $db->getInsertId() ?? null;
+            if (is_int($new_id)) $cnt_inserted++;
         }
         if (DEBUG) var_dump($insert_res);
     }
 } catch (\Dibi\Exception $e) {
-    echo PHP_EOL. "Error: " . $e->getMessage(). " New NDC: " . json_encode($new_ndc);
+    echo PHP_EOL . "Error: " . $e->getMessage() . " New NDC: " . json_encode($new_cms_drug_form);
 }
+echo PHP_EOL . "Inserted $cnt_inserted records";
 
 fclose($inp);
 echo $populate_msg;
