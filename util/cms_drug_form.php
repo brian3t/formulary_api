@@ -27,7 +27,8 @@ try {
 }
 
 
-$inp = fopen(__DIR__ . '/inp/basic drugs formulary file sample 20210731.txt', 'r');
+//$inp = fopen(__DIR__ . '/inp/basic drugs formulary file sample 20210731.txt', 'r');
+$inp = fopen(__DIR__ . '/inp/basic drugs formulary file  20210731_fullfile.txt', 'r');
 $populate_msg = '';
 if (! $inp) die('File not found');
 $header = fgets($inp);
