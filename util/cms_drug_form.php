@@ -6,8 +6,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dibi\Connection;
 
-//const DEBUG = false;
-const DEBUG = true;
+const DEBUG = false;
+//const DEBUG = true;
 const NUM_COLS = 11;
 
 $yii_conf = require_once(dirname(__DIR__) . '/f/protected/config/override.php');
@@ -57,7 +57,14 @@ try {
         $formulary_version = $vals[1];
         $contract_year = $vals[2];
         $rxcui = $vals[3];
-        $ndc = $vals[4];
+        $orig_ndc = $vals[4];//00002223680
+        //convert 11 digits ndc to 8 digits ndc by FDA
+        if ($orig_ndc[0] === '0')
+        {
+            $ndc = substr($orig_ndc, 1, 4) . '-' . substr($orig_ndc, 5, 4);//00002223680 -> 0002-2236
+        } else {
+            $ndc = substr($orig_ndc, 0, 5) . '-' . substr($orig_ndc, 6, 3);//49938011001 -> 49938-110
+        }
         $tier_level_value = $vals[5];
         $quantity_limit_yn = $vals[6];
         $quantity_limit_amount = $vals[7];

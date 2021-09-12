@@ -27,6 +27,7 @@ try {
 
 
 $inp = fopen(__DIR__ . '/inp/product.txt', 'r');
+//$inp = fopen(__DIR__ . '/inp/Products_excluded.txt', 'r');
 $populate_msg = '';
 if (! $inp) die('File not found');
 $header = fgets($inp);
