@@ -1,6 +1,8 @@
 <?php
 /*
- * Import CMS' plan_information from inp/plan_information***.txt into cplan table
+ * Import CMS' plan_information from inp/plan_information***.txt into cplan_full table
+ * After that, truncate cplan table
+ * And populate into cplan table. Only save 1 plan_id per formulary (group by)
  */
 require_once __DIR__ . '/../vendor/autoload.php';
 
