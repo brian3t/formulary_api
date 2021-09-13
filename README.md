@@ -32,3 +32,8 @@ https://lookup.decisionresourcesgroup.com/lookup/results.json?drug_ids%5B%5D=105
 
 MySQL setting:
 MYSQL_HOME = /usr
+
+### CMS Formulary
+Drugs: fda_ndc
+Plans: cplan
+Formulary: cms_drug_form

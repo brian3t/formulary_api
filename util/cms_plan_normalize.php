@@ -1,13 +1,15 @@
 <?php
 /*
- * Import CMS' plan_information from inp/plan_information***.txt into cplan_full table
+ * Normalize CMS' cplan_full table into cplan
+ * Truncate cplan table
+ * And populate cplan_full into cplan table. Only save 1 plan_id per formulary (group by)
  */
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dibi\Connection;
 
-const DEBUG = false;
-//const DEBUG = true;
+//const DEBUG = false;
+const DEBUG = true;
 const NUM_COLS = 15;
 
 $yii_conf = require_once(dirname(__DIR__) . '/f/protected/config/override.php');
@@ -25,38 +27,25 @@ try {
     return;
 }
 
-
-$inp = fopen(__DIR__ . '/inp/plan information  20210731_fullfile.txt', 'r');
-//$inp = fopen(__DIR__ . '/inp/basic drugs formulary file  20210731_fullfile.txt', 'r');
 $populate_msg = '';
-if (! $inp) die('File not found');
-$header = fgets($inp);
 //contract_id|plan_id|segment_id|contract_name                      |plan_name
 //|formulary_id|premium|deductible|icl|ma_region_code|pdp_region_code|state|county_code|snp|plan_suppressed_yn
 //H0022     |001    |000        |BUCKEYE COMMUNITY HEALTH PLAN, INC.|Buckeye Health Plan - MyCare Ohio (Medicare-Medicaid Plan)
 //|00021467     |0.00   |0          |.|              |              |OH     |36110      |0|N
-if (! $header) die("Cannot open file");
 
-$cols = explode('|', $header);
-$cols = array_map(function ($col) {
-    return strtolower($col);
-}, $cols);
-
-//if (DEBUG) var_dump($cols);
-if (sizeof($cols) !== NUM_COLS) die("Number of cols not " . NUM_COLS);
 try {
     $cnt_inserted = 0;
-    while ($row = fgets($inp)) {
-        if (DEBUG) var_dump($row);
-        $row = str_replace("\r", '', $row);
-        $row = str_replace("\n", '', $row);
-        $vals = explode("|", $row);
-        if (DEBUG) var_dump($vals);
-        if (sizeof($vals) !== NUM_COLS) {
-            echo 'Number of values not ' . NUM_COLS . ', exiting..';
-            break;
-        }
-        $contract_id = $vals[0];
+    $db->query('TRUNCATE TABLE cplan');
+
+    $result = $db->query('select max(contract_id) AS contract_id, max(plan_id) AS plan_id, max(contract_name) AS contract_name
+    , max(plan_name) AS plan_name, formulary_id, max(state) AS state, MIN(plan_suppressed_yn) AS plan_suppressed_yn, max(note) AS note
+from cplan_full
+group by formulary_id
+');
+    $norm_cplans = $result->fetchAll();
+    foreach ($norm_cplans as $norm_cplan) {
+        if (DEBUG) var_dump($norm_cplan);
+        /*$contract_id = $vals[0];
         $plan_id = $vals[1];
         $contract_name = $vals[3];
         $plan_name = $vals[4];
@@ -80,14 +69,11 @@ try {
             if (strtolower($value) == 'y') $value = true;
             if (strtolower($value) == 'n') $value = false;
             $new_cms_plan[$var_name] = $value;
-        }
+        }*/
 
 
-        $exist_cms_plan = $db->query("SELECT id FROM cplan_full WHERE contract_id = %s AND plan_id = %s", $contract_id, $plan_id);
-        $exist_cms_plan = $exist_cms_plan->fetchSingle();
-        if (! empty($exist_cms_plan)) continue;
+        $insert_res = $db->query("INSERT INTO cplan", $norm_cplan);
 
-        $insert_res = $db->query('INSERT INTO cplan_full', $new_cms_plan);
         if ($insert_res instanceof Dibi\Result) {
             if ($insert_res->count() !== 1) {
                 $populate_msg .= ". Warning: cplan not saved";
@@ -98,10 +84,9 @@ try {
         if (DEBUG) var_dump($insert_res);
     }
 } catch (\Dibi\Exception $e) {
-    echo PHP_EOL . "Error: " . $e->getMessage() . " New CMS Plan: " . json_encode($new_cms_plan);
+    echo PHP_EOL . "Error: " . $e->getMessage() . " New CMS Plan: " . json_encode($norm_cplan);
 }
 echo PHP_EOL . "Inserted $cnt_inserted records";
 
-fclose($inp);
 echo $populate_msg;
 
