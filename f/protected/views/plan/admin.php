@@ -44,17 +44,13 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 		'id',
-		'f_id',
-		'name',
-		'origin_url',
-		'state_code',
-		'is_medicare',
-		/*
-		'is_medicare_char',
-		*/
+		'formulary_id',
+		'contract_name',
+		'state',
+		'created_at',
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),
 ),
-'enablePagination' => false
+'enablePagination' => true
 )); ?>

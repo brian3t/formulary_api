@@ -88,12 +88,11 @@ class PlanController extends Controller
 		$model=Plan::model();
 		$id=Yii::app()->getRequest()->getQuery('id');
 		$state=Yii::app()->getRequest()->getQuery('state');
-		$fId=Yii::app()->getRequest()->getQuery('f_id');
-		$name=Yii::app()->getRequest()->getQuery('name');
-		$isMedicare=Yii::app()->getRequest()->getQuery('is_med');
+		$formulary_id=Yii::app()->getRequest()->getQuery('formulary_id');//this is what CMS uses to id cms plan
+		$contract_name=Yii::app()->getRequest()->getQuery('contract_name');
 		$p=array();
 		$limit = 20;
-		$conditions=array('order'=>'name asc', 'limit' => $limit);
+		$conditions=array('order'=>'contract_name asc', 'limit' => $limit);
 
 		if(!empty($id))
 		{
@@ -101,20 +100,16 @@ class PlanController extends Controller
 		};
 		if(!empty($state))
 		{
-			$p['state_code']=$state;
+			$p['state']=$state;
 		};
-		if(!empty($fId))
+		if(!empty($formulary_id))
 		{
-			$p['f_id']=$fId;
+			$p['formulary_id']=$formulary_id;
 		};
-		if(!empty($name))
+		if(!empty($contract_name))
 		{
 //			$p['name']=$name;
-			$conditions["condition"] = " name like '%" . $name . "%'";
-		};
-		if(!empty($isMedicare))
-		{
-			$p['is_medicare']=$isMedicare;
+			$conditions["condition"] = " contract_name like '%" . $contract_name . "%'";
 		};
 		if (sizeof($p) == 0){
 			$conditions = array('limit' => '20');
@@ -123,7 +118,7 @@ class PlanController extends Controller
 		$data=$model->findAllByAttributes($p,$conditions);
 		$listOfPlans=array();
 		$attributesToExport = array();
-		$attributesToExport = ["id","f_id", "name","state_code","origin_url","is_medicare"];
+		$attributesToExport = ["id","formulary_id", "contract_name","state"];
 
 		if(sizeof($p)==0)
 		{

@@ -1,16 +1,14 @@
 <?php
 
 /**
- * This is the model class for table "plan".
+ * This is the model class for table "cplan".
  *
  * The followings are the available columns in table 'plan':
  * @property integer $id
- * @property integer $f_id
- * @property string $name
- * @property string $origin_url
- * @property string $state_code
- * @property integer $is_medicare
- * @property string $is_medicare_char
+ * @property integer $formulary_id
+ * @property string $contract_name
+ * @property string $state
+ * @property datetime $created_at
  */
 class Plan extends CActiveRecord
 {
@@ -19,7 +17,7 @@ class Plan extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'plan';
+		return 'cplan';
 	}
 
 	/**
@@ -30,14 +28,12 @@ class Plan extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('f_id, is_medicare', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>800),
-			array('origin_url', 'length', 'max'=>5000),
-			array('state_code', 'length', 'max'=>2),
-			array('is_medicare_char', 'length', 'max'=>1),
+			array('formulary_id, is_medicare', 'numerical', 'integerOnly'=>true),
+			array('contract_name', 'length', 'max'=>800),
+			array('state', 'length', 'max'=>2),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, f_id, name, origin_url, state_code, is_medicare, is_medicare_char', 'safe', 'on'=>'search'),
+			array('id, formulary_id, contract_name, state', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,12 +55,10 @@ class Plan extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'f_id' => 'F',
-			'name' => 'Name',
-			'origin_url' => 'Origin Url',
-			'state_code' => 'State Code',
-			'is_medicare' => 'Is Medicare',
-			'is_medicare_char' => 'Is Medicare Char',
+			'formulary_id' => 'CMS Formulary ID',
+			'contract_name' => 'contract_name',
+			'state' => 'State',
+			'created_at' => 'Created At',
 		);
 	}
 
@@ -82,17 +76,14 @@ class Plan extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		// Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('f_id',$this->f_id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('origin_url',$this->origin_url,true);
-		$criteria->compare('state_code',$this->state_code,true);
-		$criteria->compare('is_medicare',$this->is_medicare);
-		$criteria->compare('is_medicare_char',$this->is_medicare_char,true);
+		$criteria->compare('formulary_id',$this->formulary_id);
+		$criteria->compare('contract_name',$this->contract_name,true);
+		$criteria->compare('state',$this->state,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

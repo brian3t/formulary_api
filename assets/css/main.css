@@ -13,8 +13,13 @@ body
 	margin-bottom: 5px;
 	background: white;
 	border: 1px solid #C9E0ED;
+	padding-left: 3pt;
 }
-
+ul.pagination > li{
+	list-style: none;
+	display: inline-block;
+}
+[class^="icon-"]:before, [class*=" icon-"]:before{vertical-align: sub}
 #header
 {
 	margin: 0;
@@ -24,7 +29,7 @@ body
 
 #content
 {
-    padding: 20px;
+	padding: 20px;
 }
 
 #sidebar
