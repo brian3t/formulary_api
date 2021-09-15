@@ -5,9 +5,9 @@
 
 		<?php echo $form->textFieldGroup($model,'id',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
-		<?php echo $form->textFieldGroup($model,'name',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>800)))); ?>
+		<?php echo $form->textFieldGroup($model,'productndc',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>800)))); ?>
 
-		<?php echo $form->textFieldGroup($model,'name_param',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>800)))); ?>
+		<?php echo $form->textFieldGroup($model,'nonproprietaryname',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>800)))); ?>
 
 	<div class="form-actions">
 		<?php $this->widget('booster.widgets.TbButton', array(

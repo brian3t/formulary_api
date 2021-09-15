@@ -64,7 +64,7 @@ class DrugController extends Controller
 		$id=Yii::app()->getRequest()->getQuery('id');
 		$alp=Yii::app()->getRequest()->getQuery('alp');
 		$p=array();
-		$conditions=array('order'=>'name asc');
+		$conditions=array('order'=>'nonproprietaryname asc');
 
 		if(!empty($id))
 		{
@@ -72,7 +72,7 @@ class DrugController extends Controller
 		}
 		if(!empty($alp))
 		{
-			$conditions["condition"] = "name like '" . $alp . "%'";
+			$conditions["condition"] = "nonproprietaryname like '" . $alp . "%'";
 		}
 		$data=$model->findAllByAttributes($p,$conditions);
 		$listOfDrugs=array();

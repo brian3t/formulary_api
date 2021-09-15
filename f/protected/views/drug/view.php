@@ -19,7 +19,10 @@ array('label'=>'Manage Drug','url'=>array('admin')),
 'data'=>$model,
 'attributes'=>array(
 		'id',
-		'name',
-		'name_param',
+		'productndc',
+		'nonproprietaryname',
+		'substancename',
+		'active_numerator_strength',
+		'active_ingred_unit',
 ),
 )); ?>

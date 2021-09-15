@@ -44,11 +44,14 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 		'id',
-		'name',
-		'name_param',
+		'productndc',
+		'nonproprietaryname',
+		'substancename',
+		'active_numerator_strength',
+		'active_ingred_unit',
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),
 ),
-'enablePagination' => false
+'enablePagination' => true
 )); ?>
