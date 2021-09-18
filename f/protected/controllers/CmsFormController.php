@@ -8,7 +8,6 @@ spl_autoload_register(function ($c) {
 });
 set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/../Source');
 
-use GuzzleHttp\Exception\GuzzleException;
 use Masterminds\HTML5;
 
 class CmsFormController extends Controller
@@ -118,9 +117,6 @@ class CmsFormController extends Controller
                     'formulary_id' => $formulary_id
                 );
                 $listOfFormulary['id'] = "-1";
-                $listOfFormulary['tier_code'] = "N/A";
-                $listOfFormulary['additional_info'] = "Information not available at this moment. Please check back later";
-                $listOfFormulary['restriction_code'] = "N/A";
                 echo CJavaScript::jsonEncode($listOfFormulary);
                 Yii::app()->end();
             }

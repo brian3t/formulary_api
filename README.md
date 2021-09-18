@@ -21,6 +21,7 @@ Note: in ./assets folder, need static copy of bootstrap and font-awesome...
 - create f/assets, make writable
 - copy ./assets/* into ./f/assets
 - cd f/protected, run `composer install`
+- web root is /f/
 
 ### Source
 DrugPlanStateController.php:129

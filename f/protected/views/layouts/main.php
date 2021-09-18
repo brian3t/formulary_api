@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<link rel="shortcut icon" href="/yiiboilerplate/frontend/www/favicon.ico">
+	<link rel="shortcut icon" href="/favicon.ico">
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	<!-- Bootstrap core assets  are  registered by Yii in components/Controller.php -->
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -225,7 +225,7 @@ $bu=Yii::app()->request->baseUrl . '/';
 				<?php endif; ?>
 				<li class=""><a href="<?= $bu ?>drug/admin">Drugs</a>
 				<li><a class="" href="<?= $bu ?>plan/admin">Plans</a></li>
-				<li><a class="" href="<?= $bu ?>drugPlanState/admin">Drug Plan State</a></li>
+				<li><a class="" href="<?= $bu ?>cmsForm/admin">CMS Formulary</a></li>
 			</ul>
 		</li>
 		<!-- END USER LOGIN DROPDOWN -->
@@ -271,7 +271,7 @@ $bu=Yii::app()->request->baseUrl . '/';
                                 </a>
                         </li>
                         <li>
-                                <a href="<?= $bu ?>drugPlanState/admin">
+                                <a href="<?= $bu ?>cmsForm/admin">
                                         Formularies
                                 </a>
                         </li>
