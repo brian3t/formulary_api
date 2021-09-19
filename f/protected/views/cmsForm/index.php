@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Drug Plan States',
+	'CMS Formulary',
 );
 
 $this->menu=array(
-array('label'=>'Create DrugPlanState','url'=>array('create')),
-array('label'=>'Manage DrugPlanState','url'=>array('admin')),
+array('label'=>'Create CMS Formulary','url'=>array('create')),
+array('label'=>'Manage CMS Formulary','url'=>array('admin')),
 );
 ?>
 
-<h1>Drug Plan States</h1>
+<h1>CMS Formulary</h1>
 
 <?php $this->widget('booster.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,

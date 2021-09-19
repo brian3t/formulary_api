@@ -5,9 +5,7 @@
 
 <?php echo $form->textFieldGroup($model, 'formulary_id', array('widgetOptions' => array('htmlOptions' => array('class' => 'span5')))); ?>
 
-<?php echo $form->textFieldGroup($model, 'formulary_version', array('widgetOptions' => array('htmlOptions' => array('class' => 'span5', 'maxlength' => 2)))); ?>
-
-<?php echo $form->textFieldGroup($model, 'rxcui', array('widgetOptions' => array('htmlOptions' => array('class' => 'span5')))); ?>
+<?php echo $form->textFieldGroup($model, 'ndc', array('widgetOptions' => array('htmlOptions' => array('class' => 'span5', 'maxlength' => 12)))); ?>
 
 <div class="form-actions">
     <?php $this->widget('booster.widgets.TbButton', array(

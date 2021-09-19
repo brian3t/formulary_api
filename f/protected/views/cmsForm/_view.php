@@ -12,20 +12,32 @@
 	<?php echo CHtml::encode($data->formulary_version); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('drug_name_param')); ?>:</b>
-	<?php echo CHtml::encode($data->drug_name_param); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('contract_year')); ?>:</b>
+	<?php echo CHtml::encode($data->contract_year); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('drug_id')); ?>:</b>
-	<?php echo CHtml::encode($data->drug_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('rxcui')); ?>:</b>
+	<?php echo CHtml::encode($data->rxcui); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tier_code')); ?>:</b>
-	<?php echo CHtml::encode($data->tier_code); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('ndc')); ?>:</b>
+	<?php echo CHtml::encode($data->ndc); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('additional_info')); ?>:</b>
-	<?php echo CHtml::encode($data->additional_info); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('tier_level_value')); ?>:</b>
+	<?php echo CHtml::encode($data->tier_level_value); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('quantity_limit_yn')); ?>:</b>
+	<?php echo CHtml::encode($data->quantity_limit_yn); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('quantity_limit_amount')); ?>:</b>
+	<?php echo CHtml::encode($data->quantity_limit_amount); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('quantity_limit_days')); ?>:</b>
+	<?php echo CHtml::encode($data->quantity_limit_days); ?>
 	<br />
 
 	<?php /*

@@ -1,15 +1,15 @@
 <?php
 $this->breadcrumbs=array(
-	'Drug Plan States'=>array('index'),
+	'CMS Formulary'=>array('index'),
 	'Create',
 );
 
 $this->menu=array(
-array('label'=>'List DrugPlanState','url'=>array('index')),
-array('label'=>'Manage DrugPlanState','url'=>array('admin')),
+array('label'=>'List CMS Formulary','url'=>array('index')),
+array('label'=>'Manage CMS Formulary','url'=>array('admin')),
 );
 ?>
 
-<h1>Create DrugPlanState</h1>
+<h1>Create CMS Formulary</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

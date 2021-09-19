@@ -45,15 +45,13 @@ return false;
 'columns'=>array(
 		'id',
 		'formulary_id',
-		'formulary_version',
 		'contract_year',
-		'rxcui',
 		'ndc',
 		'tier_level_value',
-		'quantity_limit_yn',
 		'quantity_limit_amount',
 		'quantity_limit_days',
 		'created_at',
+    'rxcui',
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),
