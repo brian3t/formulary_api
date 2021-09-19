@@ -45,6 +45,7 @@ return false;
 'columns'=>array(
 		'id',
 		'productndc',
+		'proprietaryname',
 		'nonproprietaryname',
 		'substancename',
 		'active_numerator_strength',
