@@ -51,7 +51,7 @@ while ($row = trim(fgets($inp))) {
 //            case 'i': break;
             case 's':
                 $col_val = str_replace('"', '', $col_val);
-                $col_val = "'" . $col_val . "'";
+                $col_val = "'" . addslashes($col_val) . "'";
                 break;
             default:
                 break;
