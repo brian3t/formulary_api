@@ -1,97 +1,71 @@
 <?php
 /*
- * Export FDA NDC from inp/fda_ndc.csv into out/fda_ndc.js
+ * Export FDA NDC from inp/fda_ndc.tsv into out/fda_ndc.js
  * Input: csv file
  * End result: JS array declaration
  */
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/phelper.php';
 
 const DEBUG = false;
 //const DEBUG = true;
+const JS_LINE_MAX_CHAR = 200;
+$longopts = array(
+//    "required:",     // Required value
+    "mode::",    // Optional value.
+    //mode: 1/ php
+    // 2/ sed
+);
+$options = getopt('', $longopts);
+$mode = $options['mode'] ?? 'file';
+if (DEBUG) var_dump($options);
 
-$inp = fopen(__DIR__ . '/inp/fda_ndc.csv', 'r');
-//$inp = fopen(__DIR__ . '/inp/fda_ndc_full.csv', 'r');
+
+$inp = fopen(__DIR__ . '/inp/fda_ndc.tsv', 'r');
+//$inp = fopen(__DIR__ . '/inp/fda_ndc_full.tsv', 'r');
+$out = fopen(__DIR__ . '/out/fda_ndc.js', 'w+');
 $populate_msg = '';
-if (! $inp) die('File not found');
-$header = fgets($inp);
-if (! $header) die("Cannot open file");
+if (! $inp || ! $out) die('File not found');
 
-$cols = explode('	', $header);
-$cols = array_map(function ($col) {
-    return strtolower($col);
-}, $cols);
+//$cols = ['id', 'ndc', 'proprietaryname'];
+$DB_COLS = ['i', 's', 's'];
 
-//if (DEBUG) var_dump($cols);
-if (sizeof($cols) !== 20) die('Number of cols not 20');
-try {
-    while ($row = fgets($inp)) {
-//    if (DEBUG) var_dump($row);
-        $row = str_replace("\r", '', $row);
-        $row = str_replace("\n", '', $row);
-        $vals = explode("\t", $row);
-//        if (DEBUG) var_dump($vals);
-        if (sizeof($vals) !== 20) {
-            echo 'Number of values not 20, exiting..';
-            break;
+fwriteln($out, '//cols: ' . 'id, ndc, proprietaryname');
+fwriteln($out, '//cols: ' . 'int, string, string');
+fwriteln($out, 'const FDA_NDC = [');
+
+//start building js array
+$cur_char_count = 0;//count chars in line
+$cur_row_count = 0;//cur row count
+while ($row = trim(fgets($inp))) {
+    $a_line = '[';
+    $cur_row_count++;
+    //escape string
+    $col_vals = explode("\t", $row);
+    foreach ($col_vals as $i => &$col_val) {
+        if (!isset($DB_COLS[$i])){
+            echo "Error: index $i, col values: " . json_encode($col_vals);
+            die(-1);
         }
-        $productid = $vals[0];
-        $productndc = $vals[1];
-        $producttypename = $vals[2];
-        $proprietaryname = $vals[3];
-        $proprietarynamesuffix = $vals[4];
-        $nonproprietaryname = $vals[5];
-        $dosageformname = $vals[6];
-        $routename = $vals[7];
-        $startmarketingdate = $vals[8];
-        $endmarketingdate = $vals[9];
-        $marketingcategoryname = $vals[10];
-        $applicationnumber = $vals[11];
-        $labelername = $vals[12];
-
-        // If it's not already UTF-8, convert to it
-        if (mb_detect_encoding($labelername, 'utf-8', true) === false) {
-//            echo "labelername not utf8, labelername: $labelername";
-            $labelername = mb_convert_encoding($labelername, 'utf-8', 'iso-8859-1');
+        switch ($DB_COLS[$i]) {
+//            case 'i': break;
+            case 's':
+                $col_val = str_replace('"', '', $col_val);
+                $col_val = "'" . $col_val . "'";
+                break;
+            default:
+                break;
         }
-
-        $substancename = $vals[13];
-        $active_numerator_strength = $vals[14];
-        $active_ingred_unit = $vals[15];
-        $pharm_classes = $vals[16];
-        $deaschedule = $vals[17];
-        $ndc_exclude_flag = $vals[18];
-        $listing_record_certified_through = $vals[19];
-
-        $new_ndc = [];
-        $csv_list_of_var_names = 'productid,productndc,producttypename,proprietaryname,proprietarynamesuffix,nonproprietaryname,dosageformname,routename
-        ,startmarketingdate,endmarketingdate,marketingcategoryname,applicationnumber,labelername,substancename,active_numerator_strength,active_ingred_unit
-        ,pharm_classes,deaschedule,ndc_exclude_flag,listing_record_certified_through';
-        $csv_list_of_var_names = str_replace(' ', '', $csv_list_of_var_names);
-        $csv_list_of_var_names = str_replace("\n", '', $csv_list_of_var_names);
-        $csv_list_of_var_names = explode(',', $csv_list_of_var_names);
-        foreach ($csv_list_of_var_names as $var_name) {
-            $value = $$var_name;
-            $new_ndc[$var_name] = $value;
-        }
-
-
-        $exist_ndc = $db->query("SELECT id FROM fda_ndc WHERE productid = %s", $productid);
-        $exist_ndc = $exist_ndc->fetchSingle();
-        if (! empty($exist_ndc)) continue;
-
-        $insert_res = $db->query('INSERT INTO fda_ndc', $new_ndc);
-        if ($insert_res instanceof Dibi\Result) {
-            if ($insert_res->count() !== 1) {
-                $populate_msg .= ". Warning: ndc not saved";
-            }
-            $ndc_id = $db->getInsertId() ?? null;
-        }
-        if (DEBUG) var_dump($insert_res);
     }
-} catch (\Dibi\Exception $e) {
-    echo PHP_EOL. "Error: " . $e->getMessage(). " New NDC: " . json_encode($new_ndc);
+    $a_line .= implode(',', $col_vals);
+    $a_line .= '],';
+    if ($cur_row_count % 4 == 0) fwriteln($out, $a_line);
+    else fwrite($out, $a_line);
 }
+fwrite($out, ']');
 
 fclose($inp);
+fclose($out);
+die();
 echo $populate_msg;
 
