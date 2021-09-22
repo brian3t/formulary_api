@@ -24,12 +24,22 @@ class Controller extends CController
 
     public function actionGet()
     {
-        $a = 1;
+        include_once(dirname(__DIR__) . '/config/override.php');
+
+        $yii_conf = YII_CONF;
+        $yii_conf = $yii_conf['components']['db'];
+        $conn_str = $yii_conf['connectionString'];//mysql:host=localhost;dbname=formulary
+        $conn_str = preg_replace('/(^.+host=)/i', '', $conn_str);
+        $db_host = preg_replace('/(;.+)$/i', '', $conn_str);
+        $db_name = preg_replace('/(.+dbname=)/i', '', $conn_str);
+
+        $db_conf = ['driver' => 'mysqli', 'host' => $db_host, 'username' => $yii_conf['username'], 'password' => $yii_conf['password'], 'database' => $db_name
+        ]; //['driver' => 'mysqli', 'host' => $hostname, 'username' => $db_username, 'password' => $db_password, 'database' => 'dbname']
         $remote_addr = $_SERVER['REMOTE_ADDR'] | '';
         $agent = $_SERVER['HTTP_USER_AGENT'] | '';
 
         mysqli_report(MYSQLI_REPORT_ALL);
-        $mysqli = new mysqli("localhost", "formulary", "fTrapok)1", "formulary");
+        $mysqli = new mysqli($db_host, $db_conf['username'], $db_conf['password'], $db_conf['database']);
         $sql = "INSERT INTO `usage` (ip, agent) VALUES (?,?)";
         if (! ($stmt = $mysqli->prepare($sql))) {
             return;
