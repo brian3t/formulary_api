@@ -28,10 +28,10 @@ $populate_msg = '';
 if (! $inp || ! $out) die('File not found');
 
 //$cols = ['id', 'ndc', 'proprietaryname'];
-$DB_COLS = ['i', 's', 's'];
+$DB_COLS = ['i', 's', 's', 's', 's'];
 
-fwriteln($out, '//cols: ' . 'id, ndc, proprietaryname');
-fwriteln($out, '//cols: ' . 'int, string, string');
+fwriteln($out, '//cols: ' . 'id,ndc,proprietaryname,active_numerator_strength,active_ingred_unit');
+fwriteln($out, '//cols: ' . 'int,string, string,string,string');
 fwriteln($out, 'const FDA_NDC = [');
 
 //start building js array
