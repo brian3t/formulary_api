@@ -1,0 +1,11 @@
+{
+  "components": {
+    "db": {
+      "connectionString": "mysql:host=localhost;dbname=formulary",
+      "emulatePrepare": true,
+      "username": "formulary",
+      "password": "pwhere",
+      "charset": "utf8"
+    }
+  }
+}

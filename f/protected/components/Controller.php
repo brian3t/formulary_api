@@ -24,9 +24,8 @@ class Controller extends CController
 
     public function actionGet()
     {
-        include_once(dirname(__DIR__) . '/config/override.php');
+        $yii_conf = json_decode(file_get_contents(dirname(__DIR__) . '/config/override.json'), JSON_OBJECT_AS_ARRAY);
 
-        $yii_conf = YII_CONF;
         $yii_conf = $yii_conf['components']['db'];
         $conn_str = $yii_conf['connectionString'];//mysql:host=localhost;dbname=formulary
         $conn_str = preg_replace('/(^.+host=)/i', '', $conn_str);
