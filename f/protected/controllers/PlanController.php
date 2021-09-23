@@ -93,6 +93,7 @@ class PlanController extends Controller
 		$p=array();
 		$limit = 20;
 		$conditions=array('order'=>'contract_name asc', 'limit' => $limit);
+        $attrs = []; //list of attributes to search
 
 		if(!empty($id))
 		{
@@ -108,14 +109,14 @@ class PlanController extends Controller
 		};
 		if(!empty($contract_name))
 		{
-//			$p['name']=$name;
+//			$p['contract_name']='contract_name';
 			$conditions["condition"] = " contract_name like '%" . $contract_name . "%'";
 		};
-		if (sizeof($p) == 0){
-			$conditions = array('limit' => '20');
+		if (!isset($p['limit'])){
+			$conditions['limit'] = 20;
 		}
 
-		$data=$model->findAllByAttributes($p,$conditions);
+		$data=$model->findAllByAttributes($attrs,$conditions);
 		$listOfPlans=array();
 		$attributesToExport = array();
 		$attributesToExport = ["id","formulary_id", "contract_name","state"];
