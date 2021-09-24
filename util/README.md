@@ -14,8 +14,12 @@ Run scripts manually:
 ##CMS 
 
 
-
+## NLM RXNorm:
 RXCUI maps to RXNORM rxnconso
+
+List of NXNorms:
+https://www.nlm.nih.gov/research/umls/rxnorm/docs/appendix5.html
+
 
 NDC is 11 digit, e.g. 00002143380
 First 0 : discard : 002143380
