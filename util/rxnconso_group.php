@@ -20,6 +20,7 @@ $db_conf = ['driver' => 'mysqli', 'host' => $db_host, 'username' => $yii_conf['u
 ]; //['driver' => 'mysqli', 'host' => $hostname, 'username' => $db_username, 'password' => $db_password, 'database' => 'dbname']
 try {
     R::setup("mysql:host=$db_host;dbname=$db_name", $db_conf['username'], $db_conf['password']);
+    R::freeze( true ); //will freeze redbeanphp
 } catch (Exception $exception) {
     echo "Error connecting " . $exception->getMessage();
     return;
@@ -28,18 +29,6 @@ try {
 //optional but recommended
 R::useFeatureSet('novice/latest');
 
-$post = R::dispense('post');
-$post->text = 'Hello World';
-
-//create or update
-$id = R::store($post);
-
-//retrieve
-$post = R::load('post', $id);
-
-//delete
-//R::trash( $post );
-
 $populate_msg = '';
 $rxcuis = R::getAll("SELECT DISTINCT(rxcui) FROM RXNCONSO" . (DEBUG ? " LIMIT $LIMIT " : ''));
 
@@ -47,16 +36,18 @@ $rxcuis = R::getAll("SELECT DISTINCT(rxcui) FROM RXNCONSO" . (DEBUG ? " LIMIT $L
 try {
     foreach ($rxcuis as ['rxcui' => $rxcui]) {
 //    if (DEBUG) var_dump($row);
-        R::hunt('rxnconso_sing', "rxcui = :rxcui", ['rxcui' => $rxcui]);
+        R::hunt('rxnconsosing', "rxcui = :rxcui", ['rxcui' => $rxcui]);
 
         $longest_tty = R::find("RXNCONSO", "RXCUI = :rxcui ORDER BY STR LIMIT 1", ['rxcui' => $rxcui]);
-        //todo here longest_tty is a bean
         if (! is_array($longest_tty) || count($longest_tty) != 1) continue;
-        $longest_tty = $longest_tty[0];
+        $longest_tty = array_pop($longest_tty);
+        if (!$longest_tty instanceof \RedBeanPHP\OODBBean) {
+            $populate_msg .= "Error, longest_tty not an object, rxcui: $rxcui " . PHP_EOL;
+            continue;
+        }
+        //longest_tty is a bean OODBBean
 
-        continue;
-
-        $vals = $longest_tty;
+        /*$vals = $longest_tty;
         $substancename = $vals[13];
         $active_numerator_strength = $vals[14];
         $active_ingred_unit = $vals[15];
@@ -81,18 +72,39 @@ try {
         $exist_ndc = $db->query("SELECT id FROM fda_ndc WHERE productid = %s", '$productid');
         $exist_ndc = $exist_ndc->fetchSingle();
         if (! empty($exist_ndc)) continue;
-
-        $insert_res = $db->query('INSERT INTO fda_ndc', $new_ndc);
-        if ($insert_res instanceof Dibi\Result) {
-            if ($insert_res->count() !== 1) {
-                $populate_msg .= ". Warning: ndc not saved";
-            }
-            $ndc_id = $db->getInsertId() ?? null;
+        */
+        $longest_tty_props = $longest_tty->getProperties();
+        $longest_tty_props_lowercase = [];
+        foreach ($longest_tty_props as $key => $longest_tty_prop) {
+            $longest_tty_props_lowercase[strtolower($key)] = $longest_tty_prop;
         }
-        if (DEBUG) var_dump($insert_res);
+        $rxnconso_sing_b = R::dispense('rxnconsosing');
+        $rxnconso_sing_b->rxcui = $longest_tty_props_lowercase['rxcui'];
+        $rxnconso_sing_b->lat = $longest_tty_props_lowercase['lat'];
+        $rxnconso_sing_b->ts = $longest_tty_props_lowercase['ts'];
+        $rxnconso_sing_b->lui = $longest_tty_props_lowercase['lui'];
+        $rxnconso_sing_b->stt = $longest_tty_props_lowercase['stt'];
+        $rxnconso_sing_b->sui = $longest_tty_props_lowercase['sui'];
+        $rxnconso_sing_b->ispref = $longest_tty_props_lowercase['ispref'];
+        $rxnconso_sing_b->rxaui = $longest_tty_props_lowercase['rxaui'];
+        $rxnconso_sing_b->saui = $longest_tty_props_lowercase['saui'];
+        $rxnconso_sing_b->scui = $longest_tty_props_lowercase['scui'];
+        $rxnconso_sing_b->sdui = $longest_tty_props_lowercase['sdui'];
+        $rxnconso_sing_b->sab = $longest_tty_props_lowercase['sab'];
+        $rxnconso_sing_b->tty = $longest_tty_props_lowercase['tty'];
+        $rxnconso_sing_b->code = $longest_tty_props_lowercase['code'];
+        $rxnconso_sing_b->str = $longest_tty_props_lowercase['str'];
+        $rxnconso_sing_b->srl = $longest_tty_props_lowercase['srl'];
+        $rxnconso_sing_b->suppress = $longest_tty_props_lowercase['suppress'];
+        $rxnconso_sing_b->cvf = $longest_tty_props_lowercase['cvf'];
+        $insert_res = R::store($rxnconso_sing_b);
+        if ($insert_res !== 1) {
+            $populate_msg .= ". Warning: ndc not saved";
+        }
+        if (DEBUG) echo($insert_res);
     }
 } catch (\Dibi\Exception $e) {
-    echo PHP_EOL . "Error: " . $e->getMessage() . " New NDC: " . json_encode($new_ndc);
+    echo PHP_EOL . "Error: " . $e->getMessage() . " New NDC: " . json_encode($longest_tty_props_lowercase);
 }
 
 echo $populate_msg;
