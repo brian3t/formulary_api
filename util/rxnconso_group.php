@@ -5,8 +5,8 @@
  *
  */
 require_once 'rb.php';
-//const DEBUG = false;
-const DEBUG = true;
+const DEBUG = false;
+//const DEBUG = true;
 if (DEBUG) $LIMIT = 5; else $LIMIT = PHP_INT_MAX;
 
 $yii_conf = require_once(dirname(__DIR__) . '/f/protected/config/override.php');
@@ -34,6 +34,7 @@ $rxcuis = R::getAll("SELECT DISTINCT(rxcui) FROM RXNCONSO" . (DEBUG ? " LIMIT $L
 
 //if (DEBUG) var_dump($cols);
 try {
+    $count_populated = 0;
     foreach ($rxcuis as ['rxcui' => $rxcui]) {
 //    if (DEBUG) var_dump($row);
         R::hunt('rxnconsosing', "rxcui = :rxcui", ['rxcui' => $rxcui]);
@@ -47,32 +48,6 @@ try {
         }
         //longest_tty is a bean OODBBean
 
-        /*$vals = $longest_tty;
-        $substancename = $vals[13];
-        $active_numerator_strength = $vals[14];
-        $active_ingred_unit = $vals[15];
-        $pharm_classes = $vals[16];
-        $deaschedule = $vals[17];
-        $ndc_exclude_flag = $vals[18];
-        $listing_record_certified_through = $vals[19];
-
-        $new_ndc = [];
-        $csv_list_of_var_names = 'productid,productndc,producttypename,proprietaryname,proprietarynamesuffix,nonproprietaryname,dosageformname,routename
-        ,startmarketingdate,endmarketingdate,marketingcategoryname,applicationnumber,labelername,substancename,active_numerator_strength,active_ingred_unit
-        ,pharm_classes,deaschedule,ndc_exclude_flag,listing_record_certified_through';
-        $csv_list_of_var_names = str_replace(' ', '', $csv_list_of_var_names);
-        $csv_list_of_var_names = str_replace(");\n", '', $csv_list_of_var_names);
-        $csv_list_of_var_names = explode(',', $csv_list_of_var_names);
-        foreach ($csv_list_of_var_names as $var_name) {
-            $value = $$var_name;
-            $new_ndc[$var_name] = $value;
-        }
-
-
-        $exist_ndc = $db->query("SELECT id FROM fda_ndc WHERE productid = %s", '$productid');
-        $exist_ndc = $exist_ndc->fetchSingle();
-        if (! empty($exist_ndc)) continue;
-        */
         $longest_tty_props = $longest_tty->getProperties();
         $longest_tty_props_lowercase = [];
         foreach ($longest_tty_props as $key => $longest_tty_prop) {
@@ -101,11 +76,12 @@ try {
         if ($insert_res !== 1) {
             $populate_msg .= ". Warning: ndc not saved";
         }
+        $count_populated++;
         if (DEBUG) echo($insert_res);
     }
 } catch (\Dibi\Exception $e) {
     echo PHP_EOL . "Error: " . $e->getMessage() . " New NDC: " . json_encode($longest_tty_props_lowercase);
 }
 
-echo $populate_msg;
+echo $populate_msg . " count populated: $count_populated" . PHP_EOL;
 
