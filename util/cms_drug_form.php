@@ -90,6 +90,7 @@ try {
         $csv_list_of_var_names = 'formulary_id,formulary_version,contract_year,rxcui,ndc,tier_level_value,quantity_limit_yn,quantity_limit_amount,quantity_limit_days
         ,prior_authorization_yn,step_therapy_yn';
         $csv_list_of_var_names = str_replace(' ', '', $csv_list_of_var_names);
+        $csv_list_of_var_names = str_replace("\r", '', $csv_list_of_var_names);
         $csv_list_of_var_names = str_replace("\n", '', $csv_list_of_var_names);
         $csv_list_of_var_names = explode(',', $csv_list_of_var_names);
         foreach ($csv_list_of_var_names as $var_name) {
