@@ -30,7 +30,8 @@ try {
 R::useFeatureSet('novice/latest');
 
 $populate_msg = '';
-$rxcuis = R::getAll("SELECT DISTINCT(rxcui) FROM RXNCONSO" . (DEBUG ? " LIMIT $LIMIT " : ''));
+$rxcuis = R::getAll("SELECT DISTINCT(con.rxcui) FROM RXNCONSO con LEFT OUTER  JOIN rxnconsosing sing ON con.RXCUI=sing.RXCUI WHERE sing.id IS NULL " . (DEBUG ? " LIMIT $LIMIT " : ''));
+echo sizeof($rxcuis) . " rxcui not having rxnconsosing" . PHP_EOL;
 
 //if (DEBUG) var_dump($cols);
 try {
