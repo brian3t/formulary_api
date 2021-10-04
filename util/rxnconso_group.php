@@ -19,7 +19,7 @@ $longopts = array(
     // 2/ sed
 );
 $options = getopt('', $longopts);
-if (!isset($options['MPPi'])) die('Must pass parameter MPPi');
+if (! isset($options['MPPi'])) die('Must pass parameter MPPi');
 $MPPi = $options['MPPi'];
 
 $yii_conf = require_once(dirname(__DIR__) . '/f/protected/config/override.php');
@@ -33,7 +33,7 @@ $db_conf = ['driver' => 'mysqli', 'host' => $db_host, 'username' => $yii_conf['u
 ]; //['driver' => 'mysqli', 'host' => $hostname, 'username' => $db_username, 'password' => $db_password, 'database' => 'dbname']
 try {
     R::setup("mysql:host=$db_host;dbname=$db_name", $db_conf['username'], $db_conf['password']);
-    R::freeze( true ); //will freeze redbeanphp
+    R::freeze(true); //will freeze redbeanphp
 } catch (Exception $exception) {
     echo "Error connecting " . $exception->getMessage();
     return;
@@ -53,10 +53,12 @@ $rxnconsos = R::getAll("SELECT con.* FROM RXNCONSO con LEFT OUTER  JOIN rxnconso
 WHERE sing.id IS NULL AND (con.RXCUI % ?) = ? "
     . (DEBUG ? " LIMIT $LIMIT " : ''), [MPP_NUM_THREAD, $MPPi]);
 $rxnconsos_by_rxcui = [];
-foreach ($rxnconsos as $r){
-    if (!isset($rxnconsos_by_rxcui[$r['RXCUI']]))
-        $rxnconsos_by_rxcui[$r['RXCUI']] = [];
-    array_push($rxnconsos_by_rxcui[$r['RXCUI']], $r);
+foreach ($rxnconsos as $r) {
+    $cur_rxcui = $r['RXCUI'];
+    if (! isset($rxnconsos_by_rxcui[$cur_rxcui]))
+        $rxnconsos_by_rxcui[$cur_rxcui] = $r;
+    if ($rxnconsos_by_rxcui[$cur_rxcui]['STR'] < $r['STR'])
+        $rxnconsos_by_rxcui[$cur_rxcui] = $r;
 }
 unset($rxnconsos);
 
@@ -68,17 +70,10 @@ try {
         R::hunt('rxnconsosing', "rxcui = :rxcui", ['rxcui' => $rxcui]);
 
         $longest_tty = $rxnconsos_by_rxcui[$rxcui];
-        if (! is_array($longest_tty) || count($longest_tty) != 1) continue;
-        $longest_tty = array_pop($longest_tty);
-        if (!$longest_tty instanceof \RedBeanPHP\OODBBean) {
-            $populate_msg .= "Error, longest_tty not an object, rxcui: $rxcui " . PHP_EOL;
-            continue;
-        }
-        //longest_tty is a bean OODBBean
+        if (! is_array($longest_tty) || count($longest_tty) != 18) continue;
 
-        $longest_tty_props = $longest_tty->getProperties();
         $longest_tty_props_lowercase = [];
-        foreach ($longest_tty_props as $key => $longest_tty_prop) {
+        foreach ($longest_tty as $key => $longest_tty_prop) {
             $longest_tty_props_lowercase[strtolower($key)] = $longest_tty_prop;
         }
         $rxnconso_sing_b = R::dispense('rxnconsosing');
