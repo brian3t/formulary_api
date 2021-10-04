@@ -3,11 +3,24 @@
  * Group RXNCONSO table into rxconso_sing
  * Keep only one TTY from rxnconso
  *
+ * Modulo Parallel Processing MPP 10/1/21
+ *
  */
 require_once 'rb.php';
 const DEBUG = false;
 //const DEBUG = true;
 if (DEBUG) $LIMIT = 5; else $LIMIT = PHP_INT_MAX;
+
+const MPP_NUM_THREAD = 2;
+$longopts = array(
+    "MPPi:",     // Required. MPP index: 0, 1, etc.. Depends on MPP_NUM_THREAD
+    //"optional::",    // Optional value.
+    //mode: 1/ php
+    // 2/ sed
+);
+$options = getopt('', $longopts);
+if (!isset($options['MPPi'])) die('Must pass parameter MPPi');
+$MPPi = $options['MPPi'];
 
 $yii_conf = require_once(dirname(__DIR__) . '/f/protected/config/override.php');
 $yii_conf = $yii_conf['components']['db'];
@@ -30,8 +43,22 @@ try {
 R::useFeatureSet('novice/latest');
 
 $populate_msg = '';
-$rxcuis = R::getAll("SELECT DISTINCT(con.rxcui) FROM RXNCONSO con LEFT OUTER  JOIN rxnconsosing sing ON con.RXCUI=sing.RXCUI WHERE sing.id IS NULL " . (DEBUG ? " LIMIT $LIMIT " : ''));
+$rxcuis = R::getAll("SELECT DISTINCT(con.rxcui) FROM RXNCONSO con LEFT OUTER  JOIN rxnconsosing sing ON con.RXCUI=sing.RXCUI 
+WHERE sing.id IS NULL AND (con.RXCUI % ?) = ? "
+    . (DEBUG ? " LIMIT $LIMIT " : ''), [MPP_NUM_THREAD, $MPPi]);
 echo sizeof($rxcuis) . " rxcui not having rxnconsosing" . PHP_EOL;
+
+//prepare list of all RXNCONSO into memory
+$rxnconsos = R::getAll("SELECT con.* FROM RXNCONSO con LEFT OUTER  JOIN rxnconsosing sing ON con.RXCUI=sing.RXCUI 
+WHERE sing.id IS NULL AND (con.RXCUI % ?) = ? "
+    . (DEBUG ? " LIMIT $LIMIT " : ''), [MPP_NUM_THREAD, $MPPi]);
+$rxnconsos_by_rxcui = [];
+foreach ($rxnconsos as $r){
+    if (!isset($rxnconsos_by_rxcui[$r['RXCUI']]))
+        $rxnconsos_by_rxcui[$r['RXCUI']] = [];
+    array_push($rxnconsos_by_rxcui[$r['RXCUI']], $r);
+}
+unset($rxnconsos);
 
 //if (DEBUG) var_dump($cols);
 try {
@@ -40,7 +67,7 @@ try {
 //    if (DEBUG) var_dump($row);
         R::hunt('rxnconsosing', "rxcui = :rxcui", ['rxcui' => $rxcui]);
 
-        $longest_tty = R::find("RXNCONSO", "RXCUI = :rxcui ORDER BY STR LIMIT 1", ['rxcui' => $rxcui]);
+        $longest_tty = $rxnconsos_by_rxcui[$rxcui];
         if (! is_array($longest_tty) || count($longest_tty) != 1) continue;
         $longest_tty = array_pop($longest_tty);
         if (!$longest_tty instanceof \RedBeanPHP\OODBBean) {

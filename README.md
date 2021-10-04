@@ -22,6 +22,7 @@ Note: in ./assets folder, need static copy of bootstrap and font-awesome...
 - copy ./assets/* into ./f/assets
 - cd f/protected, run `composer install`
 - web root is /f/
+- db setting is at f/protected/config/main.php. If want to override, create override.php (refer to override_sample.php)
 
 ### Source
 DrugPlanStateController.php:129
