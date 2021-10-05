@@ -8,8 +8,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dibi\Connection;
 
-//const DEBUG = false;
-const DEBUG = true;
+const DEBUG = false;
+//const DEBUG = true;
 const NUM_COLS = 15;
 
 $yii_conf = require_once(dirname(__DIR__) . '/f/protected/config/override.php');
@@ -45,32 +45,6 @@ group by formulary_id
     $norm_cplans = $result->fetchAll();
     foreach ($norm_cplans as $norm_cplan) {
         if (DEBUG) var_dump($norm_cplan);
-        /*$contract_id = $vals[0];
-        $plan_id = $vals[1];
-        $contract_name = $vals[3];
-        $plan_name = $vals[4];
-        $formulary_id = $vals[5];
-        $state = $vals[11];
-        $zip = $vals[12];
-        $plan_suppressed_yn = $vals[14];
-
-        // If it's not already UTF-8, convert to it
-        if (mb_detect_encoding($plan_name, 'utf-8', true) === false) {
-            $plan_name = mb_convert_encoding($plan_name, 'utf-8', 'iso-8859-1');
-        }
-
-        $new_cms_plan = [];
-        $csv_list_of_var_names = 'contract_id,plan_id,contract_name,plan_name,formulary_id,state,zip,plan_suppressed_yn';
-        $csv_list_of_var_names = str_replace(' ', '', $csv_list_of_var_names);
-        $csv_list_of_var_names = str_replace("\n", '', $csv_list_of_var_names);
-        $csv_list_of_var_names = explode(',', $csv_list_of_var_names);
-        foreach ($csv_list_of_var_names as $var_name) {
-            $value = $$var_name;
-            if (strtolower($value) == 'y') $value = true;
-            if (strtolower($value) == 'n') $value = false;
-            $new_cms_plan[$var_name] = $value;
-        }*/
-
 
         $insert_res = $db->query("INSERT INTO cplan", $norm_cplan);
 
