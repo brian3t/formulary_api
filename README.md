@@ -7,7 +7,7 @@ Web Admin: https://formapi.usvsolutions.com/f/
 App published on iTunes: https://itunes.apple.com/us/app/formulary-medical/id949735021?mt=8
 
 Sample API requests:
-https://formapi.usvsolutions.com/f/plan/get/name/a/state/CA/
+https://formapi.usvsolutions.com/f/cmsplan/get/rxcui/formularyid/
 
 Note: in ./assets folder, need static copy of bootstrap and font-awesome...
 

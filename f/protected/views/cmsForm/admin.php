@@ -46,7 +46,7 @@ return false;
 		'id',
 		'formulary_id',
 		'contract_year',
-		'ndc',
+		'rxcui',
 		'tier_level_value',
 		'quantity_limit_amount',
 		'quantity_limit_days',

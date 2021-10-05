@@ -44,12 +44,8 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 		'id',
-		'productndc',
-		'proprietaryname',
-		'nonproprietaryname',
-		'substancename',
-		'active_numerator_strength',
-		'active_ingred_unit',
+		'rxcui',
+		'str',
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),

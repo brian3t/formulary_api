@@ -1,15 +1,15 @@
 <?php
 
 /**
- * This is the model class for table "rxnconsosing".
+ * This is the model class for table "fda_ndc".
  *
- * The followings are the available columns in table 'rxnconsosing':
+ * The followings are the available columns in table 'fda_ndc':
  * @property integer $id
- * @property string $rxcui
- * @property string $str
-// * @property string $substancename
-// * @property string $active_numerator_strength
-// * @property string $active_ingred_unit
+ * @property string $productndc
+ * @property string $nonproprietaryname
+ * @property string $substancename
+ * @property string $active_numerator_strength
+ * @property string $active_ingred_unit
  */
 class Drug extends CActiveRecord
 {
@@ -18,7 +18,7 @@ class Drug extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'rxnconsosing';
+		return 'fda_ndc';
 	}
 
 	/**
@@ -29,11 +29,10 @@ class Drug extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('rxcui', 'required'),
+			array('productndc', 'required'),
 //			array('name, name_param', 'length', 'max'=>800),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('rxcui, str', 'safe', 'on'=>'search'),
+			array('productndc, nonproprietaryname', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,8 +54,11 @@ class Drug extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'rxcui' => 'RXCUI',
-			'str' => 'RxNorm Name',
+			'productndc' => 'NDC',
+			'nonproprietaryname' => 'Non Proprietary Name',
+			'substancename' => 'Substance Name',
+			'active_numerator_strength' => 'Active Numerator Strength',
+			'active_ingred_unit' => 'Active Ingredient Unit',
 		);
 	}
 
@@ -74,13 +76,11 @@ class Drug extends CActiveRecord
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('rxcui',$this->rxcui,false);
-		$criteria->compare('str',$this->str,true);
+		$criteria->compare('productndc',$this->productndc,true);
+		$criteria->compare('nonproprietaryname',$this->nonproprietaryname,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
