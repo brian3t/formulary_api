@@ -119,7 +119,7 @@ class PlanController extends Controller
 		$data=$model->findAllByAttributes($attrs,$conditions);
 		$listOfPlans=array();
 		$attributesToExport = array();
-		$attributesToExport = ["id","formulary_id", "contract_name","state"];
+		$attributesToExport = ["id","formulary_id", "contract_name","plan_name","state"];
 
 		if(sizeof($p)==0)
 		{
