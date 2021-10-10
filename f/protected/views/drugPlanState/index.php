@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'Create DrugPlanState','url'=>array('create')),
-array('label'=>'Manage DrugPlanState','url'=>array('admin')),
+array('label'=>'Create DrugFormulary','url'=>array('create')),
+array('label'=>'Manage DrugFormulary','url'=>array('admin')),
 );
 ?>
 

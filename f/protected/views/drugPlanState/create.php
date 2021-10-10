@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List DrugPlanState','url'=>array('index')),
-array('label'=>'Manage DrugPlanState','url'=>array('admin')),
+array('label'=>'List DrugFormulary','url'=>array('index')),
+array('label'=>'Manage DrugFormulary','url'=>array('admin')),
 );
 ?>
 

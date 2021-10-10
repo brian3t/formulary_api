@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List DrugPlanState','url'=>array('index')),
-array('label'=>'Create DrugPlanState','url'=>array('create')),
+array('label'=>'List DrugFormulary','url'=>array('index')),
+array('label'=>'Create DrugFormulary','url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

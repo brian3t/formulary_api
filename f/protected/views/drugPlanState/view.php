@@ -5,11 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List DrugPlanState','url'=>array('index')),
-array('label'=>'Create DrugPlanState','url'=>array('create')),
-array('label'=>'Update DrugPlanState','url'=>array('update','id'=>$model->id)),
-array('label'=>'Delete DrugPlanState','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-array('label'=>'Manage DrugPlanState','url'=>array('admin')),
+array('label'=>'List DrugFormulary','url'=>array('index')),
+array('label'=>'Create DrugFormulary','url'=>array('create')),
+array('label'=>'Update DrugFormulary','url'=>array('update','id'=>$model->id)),
+array('label'=>'Delete DrugFormulary','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+array('label'=>'Manage DrugFormulary','url'=>array('admin')),
 );
 ?>
 

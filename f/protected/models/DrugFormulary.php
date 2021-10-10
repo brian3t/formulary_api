@@ -1,26 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "drug_plan_state".
+ * This is the model class for table "cms_drug_form".
  *
- * The followings are the available columns in table 'drug_plan_state':
+ * The followings are the available columns in table 'cms_drug_form':
  * @property integer $id
- * @property integer $f_id
- * @property string $state_code
- * @property string $drug_name_param
- * @property integer $drug_id
- * @property string $tier_code
- * @property string $additional_info
- * @property string $restriction_code
+ * @property integer $formulary_id
+ * @property string $formulary_version
+ * @property string $contract_year
+ * @property integer $rxcui
+ * @property string $ndc
+ * @property string $orig_ndc
+ * @property string $tier_level_value
+ * @property string $quantity_limit_yn
+ * @property string $quantity_limit_amount
+ * @property string $quantity_limit_days
  */
-class DrugPlanState extends CActiveRecord
+class DrugFormulary extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'drug_plan_state';
+		return 'cms_drug_form';
 	}
 
 	/**
@@ -31,15 +34,12 @@ class DrugPlanState extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('f_id, state_code, drug_name_param, drug_id', 'required'),
-			array('f_id, drug_id', 'numerical', 'integerOnly'=>true),
-			array('state_code, restriction_code', 'length', 'max'=>2),
-			array('drug_name_param', 'length', 'max'=>2000),
+			array('formulary_id, state_code, drug_name_param', 'required'),
+			array('formulary_id, drug_id', 'numerical', 'integerOnly'=>true),
 			array('tier_code', 'length', 'max'=>4),
-			array('additional_info', 'length', 'max'=>2500),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, f_id, state_code, drug_name_param, drug_id, tier_code, additional_info, restriction_code', 'safe', 'on'=>'search'),
+			array('id, formulary_id, tier_code', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,8 +50,9 @@ class DrugPlanState extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
-		);
+        return array(
+            'rxnconsosing' => array(self::HAS_ONE, 'Drug', 'rxcui'),
+        );
 	}
 
 	/**
@@ -61,13 +62,12 @@ class DrugPlanState extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'f_id' => 'F',
-			'state_code' => 'State Code',
-			'drug_name_param' => 'Drug Name Param',
-			'drug_id' => 'Drug',
-			'tier_code' => 'Tier Code',
-			'additional_info' => 'Additional Info',
-			'restriction_code' => 'Restriction Code',
+			'formulary_id' => 'CMS Formulary',
+			'rxcui' => 'RXCUI',
+			'tier_level_value' => 'Tier Level',
+			'quantity_limit_yn' => 'QTY Limit?',
+			'quantity_limit_amount' => 'QTY Limit Amount',
+			'quantity_limit_days' => 'QTY Limit Days',
 		);
 	}
 
@@ -90,13 +90,9 @@ class DrugPlanState extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('f_id',$this->f_id);
-		$criteria->compare('state_code',$this->state_code,true);
-		$criteria->compare('drug_name_param',$this->drug_name_param,true);
-		$criteria->compare('drug_id',$this->drug_id);
-		$criteria->compare('tier_code',$this->tier_code,true);
-		$criteria->compare('additional_info',$this->additional_info,true);
-		$criteria->compare('restriction_code',$this->restriction_code,true);
+		$criteria->compare('formulary_id',$this->formulary_id);
+		$criteria->compare('rxcui',$this->rxcui);
+		$criteria->compare('tier_level_value',$this->tier_level_value,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +103,7 @@ class DrugPlanState extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return DrugPlanState the static model class
+	 * @return DrugFormulary the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

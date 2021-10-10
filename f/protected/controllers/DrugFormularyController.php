@@ -11,7 +11,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/../Source');
 use GuzzleHttp\Exception\GuzzleException;
 use Masterminds\HTML5;
 
-class DrugPlanStateController extends Controller
+class DrugFormularyController extends Controller
 {
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -65,7 +65,7 @@ class DrugPlanStateController extends Controller
     public function actionGet()
     {
         header("Access-Control-Allow-Origin: *");
-        $model = DrugPlanState::model();
+        $model = DrugFormulary::model();
         $id = Yii::app()->getRequest()->getQuery('id');
         $f_id = Yii::app()->getRequest()->getQuery('f_id');
         $drug_id = Yii::app()->getRequest()->getQuery('drug_id');
@@ -190,7 +190,7 @@ class DrugPlanStateController extends Controller
                             }
                         }
                         $state_code = $state;
-                        $newModel = new DrugPlanState;
+                        $newModel = new DrugFormulary;
                         $newModel->setAttributes(compact("f_id", "drug_id", "state_code", "drug_name_param", "tier_code", "additional_info", "restriction_code"));
                         if ($newModel->validate()) {
                             try {
@@ -244,13 +244,13 @@ class DrugPlanStateController extends Controller
      */
     public function actionCreate()
     {
-        $model = new DrugPlanState;
+        $model = new DrugFormulary;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['DrugPlanState'])) {
-            $model->attributes = $_POST['DrugPlanState'];
+        if (isset($_POST['DrugFormulary'])) {
+            $model->attributes = $_POST['DrugFormulary'];
             if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -274,8 +274,8 @@ class DrugPlanStateController extends Controller
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-        if (isset($_POST['DrugPlanState'])) {
-            $model->attributes = $_POST['DrugPlanState'];
+        if (isset($_POST['DrugFormulary'])) {
+            $model->attributes = $_POST['DrugFormulary'];
             if ($model->save()) {
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -312,7 +312,7 @@ class DrugPlanStateController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('DrugPlanState');
+        $dataProvider = new CActiveDataProvider('DrugFormulary');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
@@ -323,10 +323,10 @@ class DrugPlanStateController extends Controller
      */
     public function actionAdmin()
     {
-        $model = new DrugPlanState('search');
+        $model = new DrugFormulary('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['DrugPlanState'])) {
-            $model->attributes = $_GET['DrugPlanState'];
+        if (isset($_GET['DrugFormulary'])) {
+            $model->attributes = $_GET['DrugFormulary'];
         }
 
         $this->render('admin', array(
@@ -342,7 +342,7 @@ class DrugPlanStateController extends Controller
      */
     public function loadModel($id)
     {
-        $model = DrugPlanState::model()->findByPk($id);
+        $model = DrugFormulary::model()->findByPk($id);
         if ($model === null) {
             throw new CHttpException(404, 'The requested page does not exist.');
         }
