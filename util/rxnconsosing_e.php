@@ -36,6 +36,7 @@ fwriteln($out, 'const RXNCONSO_SING = [');
 //start building js array
 $cur_char_count = 0;//count chars in line
 $cur_row_count = 0;//cur row count
+$header = fgets($inp);
 while ($row = trim(fgets($inp))) {
     $a_line = '[';
     $cur_row_count++;
