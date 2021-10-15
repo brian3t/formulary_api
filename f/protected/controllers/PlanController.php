@@ -90,6 +90,7 @@ class PlanController extends Controller
 		$state=Yii::app()->getRequest()->getQuery('state');
 		$formulary_id=Yii::app()->getRequest()->getQuery('formulary_id');//this is what CMS uses to id cms plan
 		$contract_name=Yii::app()->getRequest()->getQuery('contract_name');
+		$rxcui=Yii::app()->getRequest()->getQuery('rxcui') ?? false;
 		$p=array();
 		$limit = 20;
 		$conditions=array('order'=>'contract_name asc', 'limit' => $limit);
@@ -115,9 +116,14 @@ class PlanController extends Controller
 		if (!isset($p['limit'])){
 			$conditions['limit'] = 20;
 		}
-
-		$data=$model->findAllByAttributes($attrs,$conditions);
-		$listOfPlans=array();
+        if ($rxcui){
+            $data = $model->findAllBySql("SELECT p.* FROM cplan p
+    JOIN cms_drug_form f ON p.formulary_id = f.formulary_id
+WHERE f.rxcui=:rxcui AND p.contract_name like :contractname ", ['rxcui' => $rxcui, ':contractname' => "%$contract_name%"]);
+        } else {
+            $data = $model->findAllByAttributes($attrs, $conditions);
+        }
+        $listOfPlans=array();
 		$attributesToExport = array();
 		$attributesToExport = ["id","formulary_id", "contract_name","plan_name","state"];
 

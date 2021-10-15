@@ -8,8 +8,6 @@ spl_autoload_register(function ($c) {
 });
 set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . '/../Source');
 
-use Masterminds\HTML5;
-
 class CmsFormController extends Controller
 {
     /**
@@ -65,7 +63,7 @@ class CmsFormController extends Controller
         $model = CmsForm::model();
         $id = Yii::app()->getRequest()->getQuery('id');
         $formulary_id = Yii::app()->getRequest()->getQuery('formulary_id');
-        $ndc = Yii::app()->getRequest()->getQuery('ndc');
+        $rxcui = Yii::app()->getRequest()->getQuery('rxcui');
         $tier_level_value = Yii::app()->getRequest()->getQuery('tier_level_value');
         $p = array();
         $conditions = array();
@@ -75,11 +73,11 @@ class CmsFormController extends Controller
         if (! empty($id)) {
             $p['id'] = $id;
         }
-        if (! empty($f_id)) {
+        if (! empty($formulary_id)) {
             $p['formulary_id'] = $formulary_id;
         }
-        if (! empty($ndc)) {
-            $p['ndc'] = $ndc;
+        if (! empty($rxcui)) {
+            $p['rxcui'] = $rxcui;
         }
         if (! empty($tier_level_value)) {
             $p['tier_level_value'] = $tier_level_value;
@@ -90,10 +88,11 @@ class CmsFormController extends Controller
             if ($countResults > 1) {
                 $result["status"] = -1;
                 $result["message"] = "Multiple result found!";
+                echo json_encode($result);
                 app()->end();
             } else {
                 //need either drugName or drugID
-                if (empty($ndc)) {
+                if (empty($rxcui)) {
                     $result['status'] = -1;
                     $result['message'] = "Missing ndc";
                 }
@@ -113,7 +112,7 @@ class CmsFormController extends Controller
                     app()->end();
                 }
                 $queries = array(
-                    'ndc' => $ndc,
+                    'rxcui' => $rxcui,
                     'formulary_id' => $formulary_id
                 );
                 $listOfFormulary['id'] = "-1";
@@ -126,11 +125,14 @@ class CmsFormController extends Controller
         $data = $model->findByAttributes($p, $conditions);
         $listOfFormulary = array_intersect_key(($data != null ? $data->getAttributes() : []), array("id" => null,
             "formulary_id" => null,
-            "ndc" => null,
+            "contract_year" => null,
+            "rxcui" => null,
             "tier_level_value" => null,
             "quantity_limit_yn" => null,
             "quantity_limit_amount" => null,
             "quantity_limit_days" => null,
+            "prior_authorization_yn" => null,
+            "step_therapy_yn" => null,
         ));
 
         echo CJavaScript::jsonEncode($listOfFormulary);
