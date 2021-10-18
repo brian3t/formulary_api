@@ -94,15 +94,11 @@ class PlanController extends Controller
 		$p=array();
 		$limit = 20;
 		$conditions=array('order'=>'contract_name asc', 'limit' => $limit);
-        $attrs = []; //list of attributes to search
+        $p = []; //list of attributes to search
 
 		if(!empty($id))
 		{
 			$p['id']=$id;
-		};
-		if(!empty($state))
-		{
-			$p['state']=$state;
 		};
 		if(!empty($formulary_id))
 		{
@@ -121,7 +117,7 @@ class PlanController extends Controller
     JOIN cms_drug_form f ON p.formulary_id = f.formulary_id
 WHERE f.rxcui=:rxcui AND p.contract_name like :contractname ", ['rxcui' => $rxcui, ':contractname' => "%$contract_name%"]);
         } else {
-            $data = $model->findAllByAttributes($attrs, $conditions);
+            $data = $model->findAllByAttributes($p, $conditions);
         }
         $listOfPlans=array();
 		$attributesToExport = array();
