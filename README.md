@@ -2,12 +2,12 @@
 
 Built on Yii 1.1 MVC Framework, YiiBooster and YiiBoilerPlate https://github.com/clevertech/YiiBoilerplate
 
-Web Admin: https://formapi.usvsolutions.com/f/
+Web Admin: https://formapi.socalappsolutions.com/f/
 
 App published on iTunes: https://itunes.apple.com/us/app/formulary-medical/id949735021?mt=8
 
 Sample API requests:
-https://formapi.usvsolutions.com/f/cmsplan/get/rxcui/formularyid/
+https://formapi.socalappsolutions.com/f/cmsplan/get/rxcui/formularyid/
 
 Note: in ./assets folder, need static copy of bootstrap and font-awesome...
 
@@ -19,7 +19,7 @@ Note: in ./assets folder, need static copy of bootstrap and font-awesome...
 #### Installation:
 - create f/protected/assets, make writable
 - create f/assets, make writable
-- copy ./assets/* into ./f/assets
+- cp -a ./assets/* ./f/assets/
 - cd f/protected, run `composer install`
 - web root is /f/
 - db setting is at f/protected/config/main.php. If want to override, create override.php (refer to override_sample.php). Also need to create f/protected/config/override.json
